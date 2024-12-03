@@ -1,20 +1,22 @@
 ﻿
 
+using Business.Configurations;
+using Business.Interfaces;
 using Business.Models;
 using System.Diagnostics;
 using System.Text.Json;
 
 namespace Business.Services;
-
-internal class FileService
+public class FileService : IFileService
 {
     private readonly string _directoryPath; 
     private readonly string _fileName;
 
-    public FileService(string directoryPath = "Data", string fileName = "contactList.json")
+    public FileService(FileServiceConfig config)
+        //ChatGPT
     {
-        _directoryPath = directoryPath;
-        _fileName = Path.Combine (_directoryPath, fileName);
+        _directoryPath = config.DirectoryPath;
+        _fileName = Path.Combine (_directoryPath, config.FileName);
     }
 
     public void SaveToFile(List<Contact> contacts)

@@ -3,15 +3,27 @@ using System.Reflection.Metadata;
 using Business.Models;
 using Business.DTOs;
 using Business.Factories;
+using Business.Interfaces;
 
 namespace Business.Services;
 
-public class MenuService
+public class MenuService : IMenuService
 {
-    private static readonly FileService fileService = new FileService();
-    private static List<Contact> contactList = fileService.LoadListFromFile();
+    private readonly IFileService fileService;
+    private readonly List<Contact> contactList;
+    private readonly IContactService contactService;
+    private readonly Helpers helper;
 
-    public static void MainMenu()
+
+    public MenuService()
+    {
+        fileService = new FileService();
+        contactList = fileService.LoadListFromFile();
+        contactService = new ContactService();
+        helper = new Helpers();
+    }
+
+    public void MainMenu()
     {
         string choice = "";
         bool exit = false;
@@ -23,8 +35,8 @@ public class MenuService
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. View all contacts");
             Console.WriteLine("2. Create new conatct");
-            Console.WriteLine("3. Edit or delete contact");
-            Console.WriteLine("4. Exit application.");
+            //Console.WriteLine("3. Edit or delete contact");
+            Console.WriteLine("3. Exit application");
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Make your choice: ");
             choice = Console.ReadLine()!;
@@ -32,18 +44,18 @@ public class MenuService
             switch (choice)
             {
                 case "1":
-                    ViewAllContacts(contactList);
+                    contactService.ViewAllContacts(contactList);
                     break;
 
                 case "2":
-                    CreateNewContact(contactList);
+                    contactService.CreateNewContact(contactList);
                     break;
+
+                //case "3":
+                //    EditOrDeleteContact(contactList);
+                //    break;
 
                 case "3":
-                    EditOrDeleteContact(contactList);
-                    break;
-
-                case "4":
                     exit = ExitApp(exit);
                     break;
 
@@ -60,76 +72,20 @@ public class MenuService
 
     }
 
-    internal static void ViewAllContacts(List<Contact> contactList)
-    {
-        Console.WriteLine("-------------- Your contacts: --------------");
-        Console.WriteLine();
-
-        foreach (Contact contact in contactList) {
-            Console.WriteLine($"Name: {contact.FirstName} {contact.LastName}");
-            Console.WriteLine($"Email: {contact.Email}");
-            Console.WriteLine($"Phone: {contact.PhoneNumber}");
-            Console.WriteLine($"Address: {contact.StreetAddress}, {contact.PostCode} {contact.City}");
-
-            Console.WriteLine();
-        }
-
-        Helpers.Pause();
-    }
-
-    internal static void CreateNewContact(List<Contact> contactList)
-    {
-        Console.WriteLine("------------- Add new contact --------------");
-        Console.Write("First name: "); 
-        string firstName = Console.ReadLine()!.Trim();
-        string vFirstName = Helpers.ValidateInput(firstName, "name");
-
-        Console.Write("Last name: ");
-        string lastName = Console.ReadLine()!.Trim();
-        string vLastName = Helpers.ValidateInput(lastName, "last name");
-
-        Console.Write("Email: ");
-        string email = Console.ReadLine()!.Trim();
-        string vEmail = Helpers.ValidateEmail(email);
-
-        Console.Write("Phone number: ");
-        string phoneNumber = Console.ReadLine()!.Trim();
-        string vPhoneNumber = Helpers.ValidatePhone(phoneNumber);
-
-        Console.Write("Street address: ");
-        string streetAddress = Console.ReadLine()!.Trim();
-        string vStreetAddress = Helpers.ValidateInput(streetAddress, "street address");
-
-        Console.Write("Post code (numbers): ");
-        string postCode = Console.ReadLine()!.Trim();
-        string vPostCode = Helpers.ValidatePostCode(postCode);
-
-        Console.Write("City: ");
-        string city = Console.ReadLine()!.Trim();
-        string vCity = Helpers.ValidateInput(city, "city");
-
-        var Contact = ContactFactory.Create(vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
-        contactList.Add(Contact);
-        fileService.SaveToFile(contactList);
-        Console.WriteLine($"{vFirstName}'s contact details were added.");
-        Helpers.Pause();
-
-    }
-
     
-    internal static void EditOrDeleteContact(List<Contact> contactList)
+
+
+    public void EditOrDeleteContact(List<Contact> contactList)
     {
         Console.WriteLine("--------- Edit or delete contact -----------");
         Console.WriteLine("Search contact: ");
         string search = Console.ReadLine()!.Trim();
 
-        
-
         fileService.SaveToFile(contactList);   
     }
  
 
-    internal static bool ExitApp(bool exit)
+    public bool ExitApp(bool exit)
     {
         Console.Write("Are you sure you want to exit the application? Y/N: ");
         string confirm = Console.ReadLine()!;
@@ -139,12 +95,12 @@ public class MenuService
         }
         else if (confirm.Equals("n", StringComparison.OrdinalIgnoreCase))
         {
-            Helpers.Pause();
+            helper.Pause();
         }
         else
         {
             Console.Write("You didn't make a valid choice.");
-            Helpers.Pause();
+            helper.Pause();
         }
         return exit;
     }
