@@ -11,9 +11,9 @@ class Program
         using IHost host = Host.CreateDefaultBuilder().ConfigureServices((config, services) =>
         {
             services.AddTransient<IMenuService, MenuService>();
-            services.AddTransient<IFileService, FileService>();
+            services.AddSingleton<IFileService, FileService>();
             services.AddTransient<Helpers>();
-            services.AddTransient<IContactService, ContactService>();
+            services.AddSingleton<IContactService, ContactService>();
             services.AddSingleton(new FileServiceConfig
             {
                 DirectoryPath = "Data",
@@ -22,12 +22,10 @@ class Program
 
         }).Build();
 
-        using(var scope = host.Services.CreateScope())
+        using (var scope = host.Services.CreateScope())
         {
             var IMenuService = scope.ServiceProvider.GetRequiredService<IMenuService>();
             IMenuService.MainMenu();
         }
-
-
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-using Business.Factories;
+﻿using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
 
@@ -8,15 +6,15 @@ namespace Business.Services;
 
 public class ContactService : IContactService
 {
-    private readonly FileService fileService;
+    private readonly IFileService fileService;
     private readonly List<Contact> contactList;
     private readonly Helpers helper;
 
-    public ContactService()
+    public ContactService(IFileService fileService, Helpers helper)
     {
-        fileService = new FileService();
+        this.fileService = fileService;
         contactList = fileService.LoadListFromFile();
-        helper = new Helpers();
+        this.helper = helper;
     }
 
     public void CreateNewContact(List<Contact> contactList)

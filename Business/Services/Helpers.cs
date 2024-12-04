@@ -1,6 +1,4 @@
-﻿
-
-using Business.Interfaces;
+﻿using Business.Interfaces;
 using Business.Models;
 using System.Text.RegularExpressions;
 
@@ -8,18 +6,6 @@ namespace Business.Services;
 
 public class Helpers
 {
-    private readonly IFileService fileService;
-    private readonly List<Contact> contactList;
-    private readonly IContactService contactService;
-    private readonly IMenuService menuService;
-    public Helpers()
-    {
-        fileService = new FileService();
-        contactList = fileService.LoadListFromFile();
-        contactService = new ContactService();
-        menuService = new MenuService();
-    }
-
     public void Pause()
     {
         Console.WriteLine();

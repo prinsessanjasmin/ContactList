@@ -15,12 +15,14 @@ public class MenuService : IMenuService
     private readonly Helpers helper;
 
 
-    public MenuService()
+    public MenuService(IFileService fileService, IContactService contactService, Helpers helper)
     {
-        fileService = new FileService();
+        this.fileService = fileService;
+        this.contactService = contactService;
+        this.helper = helper;
+        //^using "this" is a suggestion from ChatGPT 4o
+
         contactList = fileService.LoadListFromFile();
-        contactService = new ContactService();
-        helper = new Helpers();
     }
 
     public void MainMenu()

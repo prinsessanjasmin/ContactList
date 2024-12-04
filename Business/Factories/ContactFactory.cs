@@ -1,15 +1,12 @@
 ﻿using Business.Models;
 using Business.Services;
 
-
 namespace Business.Factories;
 
 internal class ContactFactory
 {
     public static Contact Create(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postCode, string city)
-    {
-
-        
+    {   
         return new Contact
         {
             Id = Helpers.CreateUniqueId(),
@@ -21,6 +18,5 @@ internal class ContactFactory
             PostCode = postCode.Trim(),
             City = city.Trim()
         };
-        
     }
 }

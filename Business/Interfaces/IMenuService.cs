@@ -6,7 +6,5 @@ namespace Business.Interfaces;
 public interface IMenuService
 {
     void MainMenu();
-
     bool ExitApp(bool exit); 
-
 }
