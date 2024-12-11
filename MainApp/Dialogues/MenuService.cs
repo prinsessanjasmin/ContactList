@@ -7,37 +7,25 @@ using Business.Interfaces;
 
 namespace Business.Services;
 
-public class MenuService : IMenuService
+public class MenuService(IFileService fileService, IContactService contactService, Helpers helper) : IMenuService
 {
-    private readonly IFileService fileService;
-    private readonly List<Contact> contactList;
-    private readonly IContactService contactService;
-    private readonly Helpers helper;
-
-
-    public MenuService(IFileService fileService, IContactService contactService, Helpers helper)
-    {
-        this.fileService = fileService;
-        this.contactService = contactService;
-        this.helper = helper;
-        //^using "this" is a suggestion from ChatGPT 4o
-
-        contactList = fileService.LoadListFromFile();
-    }
+    private readonly IFileService fileService = fileService;
+    private readonly List<Contact> contactList = fileService.LoadListFromFile();
+    private readonly IContactService contactService = contactService;
+    private readonly Helpers helper = helper;
 
     public void MainMenu()
     {
         string choice = "";
         bool exit = false;
         
-
         do
         {
+            Console.Clear();
             Console.WriteLine("------ Welcome to your contact list! ------");
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. View all contacts");
             Console.WriteLine("2. Create new conatct");
-            //Console.WriteLine("3. Edit or delete contact");
             Console.WriteLine("3. Exit application");
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Make your choice: ");
@@ -50,13 +38,8 @@ public class MenuService : IMenuService
                     break;
 
                 case "2":
-                    contactService.CreateNewContact(contactList);
+                    CreateNewContactOption();
                     break;
-
-                //case "3":
-                //    EditOrDeleteContact(contactList);
-                //    break;
-
                 case "3":
                     exit = ExitApp(exit);
                     break;
@@ -65,27 +48,48 @@ public class MenuService : IMenuService
                     Console.WriteLine("You must make a choice!");
                     break;
             
-            } Console.Clear(); 
+            } 
         
         } while (!exit);
         
         Console.WriteLine("Thanks for using the contact list. Have a good day!");
         Console.ReadKey();
-
     }
 
-    
-
-
-    public void EditOrDeleteContact(List<Contact> contactList)
+    public void CreateNewContactOption()
     {
-        Console.WriteLine("--------- Edit or delete contact -----------");
-        Console.WriteLine("Search contact: ");
-        string search = Console.ReadLine()!.Trim();
+        Console.WriteLine("------------- Add new contact --------------");
+        Console.Write("First name: ");
+        string firstName = Console.ReadLine()!.Trim();
+        string vFirstName = helper.ValidateInput(firstName, "name");
 
-        fileService.SaveToFile(contactList);   
+        Console.Write("Last name: ");
+        string lastName = Console.ReadLine()!.Trim();
+        string vLastName = helper.ValidateInput(lastName, "last name");
+
+        Console.Write("Email: ");
+        string email = Console.ReadLine()!.Trim();
+        string vEmail = helper.ValidateEmail(email);
+
+        Console.Write("Phone number: ");
+        string phoneNumber = Console.ReadLine()!.Trim();
+        string vPhoneNumber = helper.ValidatePhone(phoneNumber);
+
+        Console.Write("Street address: ");
+        string streetAddress = Console.ReadLine()!.Trim();
+        string vStreetAddress = helper.ValidateInput(streetAddress, "street address");
+
+        Console.Write("Post code (numbers): ");
+        string postCode = Console.ReadLine()!.Trim();
+        string vPostCode = helper.ValidatePostCode(postCode);
+
+        Console.Write("City: ");
+        string city = Console.ReadLine()!.Trim();
+        string vCity = helper.ValidateInput(city, "city");
+
+        ContactDto contactDto = new ContactDto(vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
+        contactService.CreateNewContact(contactList, contactDto);
     }
- 
 
     public bool ExitApp(bool exit)
     {
@@ -106,7 +110,6 @@ public class MenuService : IMenuService
         }
         return exit;
     }
-
 }
 
 

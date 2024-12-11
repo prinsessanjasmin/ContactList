@@ -22,9 +22,8 @@ public class Helpers
 
     public string ValidateInput(string input, string expected)
     {
-        int stringLength = input.Length;
 
-        while (string.IsNullOrEmpty(input) || (stringLength < 2))
+        while (string.IsNullOrEmpty(input) || (input.Length < 2))
         {
             Console.WriteLine($"The contact's {expected} must be at least 2 characters long! Please try again");
             input = Console.ReadLine()!.Trim();
@@ -57,7 +56,6 @@ public class Helpers
             Console.WriteLine("You need to enter a valid Swedish phone number. Please try again: ");
             phoneNumber = Console.ReadLine()!.Trim();
         }
-
         return phoneNumber;
     }
 
@@ -71,7 +69,6 @@ public class Helpers
             Console.WriteLine($"The post code must be in the form of 5 digits! Please try again: ");
             postCode = Console.ReadLine()!.Trim();
         }
-
         return postCode;
     }
 }

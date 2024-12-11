@@ -1,22 +1,23 @@
 ﻿using Business.Models;
+using Business.DTOs;
 using Business.Services;
 
 namespace Business.Factories;
 
 internal class ContactFactory
 {
-    public static Contact Create(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postCode, string city)
-    {   
+    public static Contact Create(ContactDto dto)
+    {
         return new Contact
         {
             Id = Helpers.CreateUniqueId(),
-            FirstName = firstName.Trim(),
-            LastName = lastName.Trim(),
-            Email = email.Trim(),
-            PhoneNumber = phoneNumber.Trim(),
-            StreetAddress = streetAddress.Trim(),
-            PostCode = postCode.Trim(),
-            City = city.Trim()
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            Email = dto.Email,
+            PhoneNumber = dto.PhoneNumber,
+            StreetAddress = dto.StreetAddress,
+            PostCode = dto.PostCode,
+            City = dto.City
         };
     }
 }
