@@ -2,29 +2,40 @@
 using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
+using System.Diagnostics;
 
 namespace Business.Services;
 
 public class ContactService(IFileService fileService, Helpers helper) : IContactService
 {
-    private readonly IFileService fileService = fileService;
-    private readonly Helpers helper = helper;
+    private readonly IFileService _fileService = fileService;
+    private readonly Helpers _helper = helper;
 
-    public void CreateNewContact(List<Contact> contactList, ContactDto dto)
+    public bool CreateNewContact(List<Contact> contactList, ContactDto dto)
     {
-        var Contact = ContactFactory.Create(dto);
-        contactList.Add(Contact);
-        fileService.SaveToFile(contactList);
-        Console.WriteLine($"{Contact.FirstName}'s contact details were added.");
-        helper.Pause();
+        try
+        {
+            var Contact = ContactFactory.Create(dto);
+            contactList.Add(Contact);
+            _fileService.SaveToFile(contactList);
+            Console.WriteLine($"{Contact.FirstName}'s contact details were added.");
+            _helper.Pause();
+            return true; 
+        }
+        catch (Exception ex) 
+        {
+            Debug.WriteLine(ex.Message);
+            return false;
+        }
     }
 
-    public void ViewAllContacts(List<Contact> contactList)
+    public bool ViewAllContacts(List<Contact> contactList)
     {
-        if (contactList.Count < 1)
+        if (contactList.Count <= 0)
         {
-            Console.WriteLine("There are no contacts in this list."); 
-            helper.Pause();
+            Console.WriteLine("There are no contacts in this list.");
+            _helper.Pause();
+            return false;
         }
         else
         {
@@ -33,13 +44,12 @@ public class ContactService(IFileService fileService, Helpers helper) : IContact
             
             foreach (Contact contact in contactList)
             {
-                Console.WriteLine($"Name: {contact.FirstName} {contact.LastName}");
-                Console.WriteLine($"Email: {contact.Email}");
-                Console.WriteLine($"Phone: {contact.PhoneNumber}");
-                Console.WriteLine($"Address: {contact.StreetAddress}, {contact.PostCode} {contact.City}");
+                string contactString = contact.ToString();
+                Console.WriteLine(contactString); 
                 Console.WriteLine();
             }
-            helper.Pause();
+            _helper.Pause();
+            return true; 
         }
     }
 }

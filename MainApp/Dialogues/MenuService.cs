@@ -2,23 +2,22 @@
 using System.Reflection.Metadata;
 using Business.Models;
 using Business.DTOs;
-using Business.Factories;
 using Business.Interfaces;
+using Business.Services;
 
-namespace Business.Services;
+namespace Presentation.Console_MainApp.Dialogues;
 
 public class MenuService(IFileService fileService, IContactService contactService, Helpers helper) : IMenuService
 {
-    private readonly IFileService fileService = fileService;
-    private readonly List<Contact> contactList = fileService.LoadListFromFile();
-    private readonly IContactService contactService = contactService;
-    private readonly Helpers helper = helper;
+    private readonly List<Contact> _contactList = fileService.LoadListFromFile();
+    private readonly IContactService _contactService = contactService;
+    public Helpers helper = helper;
 
     public void MainMenu()
     {
-        string choice = "";
+        string choice;
         bool exit = false;
-        
+
         do
         {
             Console.Clear();
@@ -34,7 +33,7 @@ public class MenuService(IFileService fileService, IContactService contactServic
             switch (choice)
             {
                 case "1":
-                    contactService.ViewAllContacts(contactList);
+                    _contactService.ViewAllContacts(_contactList);
                     break;
 
                 case "2":
@@ -47,16 +46,16 @@ public class MenuService(IFileService fileService, IContactService contactServic
                 default:
                     Console.WriteLine("You must make a choice!");
                     break;
-            
-            } 
-        
+
+            }
+
         } while (!exit);
-        
+
         Console.WriteLine("Thanks for using the contact list. Have a good day!");
         Console.ReadKey();
     }
 
-    public void CreateNewContactOption()
+    public bool CreateNewContactOption()
     {
         Console.WriteLine("------------- Add new contact --------------");
         Console.Write("First name: ");
@@ -87,8 +86,19 @@ public class MenuService(IFileService fileService, IContactService contactServic
         string city = Console.ReadLine()!.Trim();
         string vCity = helper.ValidateInput(city, "city");
 
-        ContactDto contactDto = new ContactDto(vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
-        contactService.CreateNewContact(contactList, contactDto);
+        string id = Helpers.CreateUniqueId();
+
+        try
+        {
+            ContactDto contactDto = new(id, vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
+            return _contactService.CreateNewContact(_contactList, contactDto);
+            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return false;
+        }
     }
 
     public bool ExitApp(bool exit)

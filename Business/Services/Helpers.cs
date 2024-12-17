@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Business.Services;
 
-public class Helpers
+public class Helpers : IHelpers
 {
     public void Pause()
     {
@@ -22,7 +22,6 @@ public class Helpers
 
     public string ValidateInput(string input, string expected)
     {
-
         while (string.IsNullOrEmpty(input) || (input.Length < 2))
         {
             Console.WriteLine($"The contact's {expected} must be at least 2 characters long! Please try again");
@@ -42,7 +41,6 @@ public class Helpers
             Console.WriteLine("The email adress you entered is not in the correct format. Please try again: ");
             email = Console.ReadLine()!.Trim();
         }
-
         return email;
     }
 

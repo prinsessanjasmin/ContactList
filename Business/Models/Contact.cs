@@ -16,9 +16,9 @@ public class Contact
     public string PostCode { get; set; } = null!;
     public string City { get; set; } = null!;
 
-    public override string ToString()
+    public override string ToString() 
     {
-        return $"{FirstName} {LastName}, {Email}, {PhoneNumber}, {StreetAddress}, {PostCode}, {City}";
+        return $"Contact id: {Id}\nName: {FirstName} {LastName}\nEmail: {Email}\nPhone: {PhoneNumber}\nAddress: {StreetAddress}, {PostCode}, {City}";
     }
 }
 

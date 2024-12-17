@@ -1,6 +1,4 @@
-﻿
-
-using Business.Configurations;
+﻿using Business.Configurations;
 using Business.Interfaces;
 using Business.Models;
 using System.Diagnostics;
@@ -19,7 +17,7 @@ public class FileService : IFileService
         _fileName = Path.Combine (_directoryPath, config.FileName);
     }
 
-    public void SaveToFile(List<Contact> contacts)
+    public bool SaveToFile(List<Contact> contacts)
     {
         try
         {
@@ -31,10 +29,12 @@ public class FileService : IFileService
             var json = JsonSerializer.Serialize(contacts, new JsonSerializerOptions { WriteIndented = true });
 
             File.WriteAllText(_fileName, json);
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
+            return false;
         }
     }
 

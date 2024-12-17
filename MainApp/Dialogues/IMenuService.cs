@@ -1,12 +1,11 @@
 ﻿using Business.Models;
 using Business.Services;
 
-namespace Business.Interfaces;
+namespace Presentation.Console_MainApp.Dialogues;
 
 public interface IMenuService
 {
     void MainMenu();
-
-    void CreateNewContactOption();
-    bool ExitApp(bool exit); 
+    bool CreateNewContactOption();
+    bool ExitApp(bool exit);
 }
