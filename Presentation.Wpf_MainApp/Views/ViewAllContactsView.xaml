@@ -5,25 +5,67 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Presentation.Wpf_MainApp.Views"
              xmlns:viewmodels="clr-namespace:Presentation.Wpf_MainApp.ViewModels"
+             xmlns:models="clr-namespace:Business.Models;assembly=Business"
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewAllContactsViewModel}"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="550" d:DesignWidth="300">
     <Grid>
-        <StackPanel Grid.Row="0">
-            <TextBlock Padding="8" Text="{Binding Title}" Foreground="Black"/>
+        <TextBlock Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
+        <StackPanel Grid.Row="1">
+            <TextBlock Padding="8" Text="{Binding Title}" HorizontalAlignment="Center" Foreground="Black"/>
         </StackPanel>
 
-        <Button Grid.Row="2" Margin="8" Padding="8" Content="Go Back"/>
+        <Button Grid.Row="2" Margin="8" Padding="8" Content="Go Back" Command="{Binding GoBackCommand}"/>
 
+        <Grid Grid.Row="1" Margin="8">
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Your Contacts" Padding="8" FontSize="16" FontWeight="Bold"/>
+            <Button Grid.Row="0" Grid.Column="10" Content="+" Command="{Binding GoToAddContactViewCommand}" FontWeight="Bold" FontSize="24" Padding="10 0 10 6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+            <ListView ItemsSource="{Binding Contacts}" Grid.Row="1" Margin="0 10 0 0" HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="models:Contact">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                        
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                        
+                            <StackPanel>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Contact-id:"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Id}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding FirstName}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding LastName}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding PhoneNumber}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding StreetAddress}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Email}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding PostCode}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding City}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+        </Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
     </Grid>
 </UserControl>

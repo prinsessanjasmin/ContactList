@@ -5,7 +5,7 @@ namespace Business.Interfaces
 {
     public interface IContactService
     {
-        bool CreateNewContact(List<Contact> contactList, ContactDto dto);
-        bool ViewAllContacts(List<Contact> contactList);
+        bool CreateNewContact(ContactDto dto);
+        List<Contact> ViewAllContacts();
     }
 }

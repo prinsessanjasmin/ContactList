@@ -1,12 +1,11 @@
 ﻿using Business.Models;
+using Business.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace Business.DTOs;
 
-public class ContactDto(string id, string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postCode, string city)
+public class ContactDto(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postCode, string city)
 {
-    [Required]
-    public string Id { get; set; } = id; 
     [Required]
     public string FirstName { get; set; } = firstName.Trim();
     [Required]
@@ -22,15 +21,8 @@ public class ContactDto(string id, string firstName, string lastName, string ema
     [Required]
     public string City { get; set; } = city.Trim();
 
-    /*
-    public static ContactDto ToDto(Contact contact)
+    public static ContactDto CreateEmpty()
     {
-        return new ContactDto
-        {
-            ContactName = ($"{contact.FirstName} {contact.LastName}"),
-            Email = contact.Email,
-            Address = ($"{contact.StreetAddress}, {contact.PostCode} {contact.City}")
-        };
+        return new ContactDto(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
     }
-    */
 }

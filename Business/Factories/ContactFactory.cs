@@ -10,7 +10,7 @@ public class ContactFactory
     {
         return new Contact
         {
-            Id = dto.Id,
+            Id = Helpers.CreateUniqueId(),
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,

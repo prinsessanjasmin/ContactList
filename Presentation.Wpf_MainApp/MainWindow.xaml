@@ -13,19 +13,15 @@
         Background="White"
         d:DesignHeight="550" d:DesignWidth="300">
 
-    <Grid Margin="15">
-        <StackPanel Grid.Row="0" >
-            <TextBlock Text="The Address Book" Padding="8" />
-        </StackPanel>
-        
-        <StackPanel Grid.Row="1">
-            <Button Padding="8" Margin="8" Content="View All Contacts" Command="{Binding GoToViewAllContacts}"/>
-            <Button Padding="8" Margin="8" Content="Add New Contact" Command="{Binding GoToAddContact}"/>
-            <Button Padding="8" Margin="8" Content="Edit Or Remove Contact" Command="{Binding GoToEditOrDeleteContact}"/>
-        </StackPanel>
 
+    <Grid Margin="15">
+        
         <ContentControl Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
+                    <views:MainView/>
+                </DataTemplate>
+
                 <DataTemplate DataType="{x:Type viewmodels:AddContactViewModel}">
                     <views:AddContactView/>
                 </DataTemplate>
@@ -39,11 +35,5 @@
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
     </Grid>
 </Window>

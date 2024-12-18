@@ -9,7 +9,7 @@ namespace Presentation.Console_MainApp.Dialogues;
 
 public class MenuService(IFileService fileService, IContactService contactService, Helpers helper) : IMenuService
 {
-    private readonly List<Contact> _contactList = fileService.LoadListFromFile();
+    //private readonly List<Contact> _contactList = fileService.LoadListFromFile();
     private readonly IContactService _contactService = contactService;
     public Helpers helper = helper;
 
@@ -33,11 +33,13 @@ public class MenuService(IFileService fileService, IContactService contactServic
             switch (choice)
             {
                 case "1":
-                    _contactService.ViewAllContacts(_contactList);
+                    _contactService.ViewAllContacts();
+                    helper.Pause();
                     break;
 
                 case "2":
                     CreateNewContactOption();
+                    helper.Pause();
                     break;
                 case "3":
                     exit = ExitApp(exit);
@@ -45,6 +47,7 @@ public class MenuService(IFileService fileService, IContactService contactServic
 
                 default:
                     Console.WriteLine("You must make a choice!");
+                    helper.Pause();
                     break;
 
             }
@@ -86,19 +89,20 @@ public class MenuService(IFileService fileService, IContactService contactServic
         string city = Console.ReadLine()!.Trim();
         string vCity = helper.ValidateInput(city, "city");
 
-        string id = Helpers.CreateUniqueId();
-
         try
         {
-            ContactDto contactDto = new(id, vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
-            return _contactService.CreateNewContact(_contactList, contactDto);
+            ContactDto contactDto = new(vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
+            helper.Pause();
+            return _contactService.CreateNewContact(contactDto);
             
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+            helper.Pause();
             return false;
         }
+        
     }
 
     public bool ExitApp(bool exit)

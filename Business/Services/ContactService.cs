@@ -8,18 +8,18 @@ namespace Business.Services;
 
 public class ContactService(IFileService fileService, Helpers helper) : IContactService
 {
+    private readonly List<Contact> _contactList = fileService.LoadListFromFile();
     private readonly IFileService _fileService = fileService;
     private readonly Helpers _helper = helper;
 
-    public bool CreateNewContact(List<Contact> contactList, ContactDto dto)
+    public bool CreateNewContact(ContactDto dto)
     {
         try
         {
             var Contact = ContactFactory.Create(dto);
-            contactList.Add(Contact);
-            _fileService.SaveToFile(contactList);
+            _contactList.Add(Contact);
+            _fileService.SaveToFile(_contactList);
             Console.WriteLine($"{Contact.FirstName}'s contact details were added.");
-            _helper.Pause();
             return true; 
         }
         catch (Exception ex) 
@@ -29,27 +29,25 @@ public class ContactService(IFileService fileService, Helpers helper) : IContact
         }
     }
 
-    public bool ViewAllContacts(List<Contact> contactList)
+    public List<Contact> ViewAllContacts()
     {
-        if (contactList.Count <= 0)
+        if (_contactList.Count <= 0)
         {
             Console.WriteLine("There are no contacts in this list.");
-            _helper.Pause();
-            return false;
+            return [];
         }
         else
         {
             Console.WriteLine("-------------- Your contacts: --------------");
             Console.WriteLine();
             
-            foreach (Contact contact in contactList)
+            foreach (Contact contact in _contactList)
             {
                 string contactString = contact.ToString();
                 Console.WriteLine(contactString); 
                 Console.WriteLine();
             }
-            _helper.Pause();
-            return true; 
+            return _contactList; 
         }
     }
 }

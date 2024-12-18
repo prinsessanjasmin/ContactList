@@ -26,6 +26,7 @@ public partial class App : Application
             {
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<MainWindow>();
+                services.AddSingleton<MainView>();
                 services.AddTransient<AddContactViewModel>();
                 services.AddTransient<AddContactView>();
                 services.AddTransient<EditOrRemoveContactViewModel>();
@@ -37,7 +38,7 @@ public partial class App : Application
                 services.AddSingleton<IContactService, ContactService>();
                 services.AddSingleton(new FileServiceConfig
                 {
-                    DirectoryPath = "Data",
+                    DirectoryPath = "C:\\Projects\\ContactList\\MainApp\\bin\\Debug\\net8.0\\Data",
                     FileName = "contactList.json"
                 });
             }).Build();

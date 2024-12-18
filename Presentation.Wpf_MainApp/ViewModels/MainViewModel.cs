@@ -1,43 +1,45 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation.Wpf_MainApp.Views;
 
 namespace Presentation.Wpf_MainApp.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
     private readonly IServiceProvider _serviceProvider;
-    
+
+    public MainViewModel(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+        CurrentViewModel = this;
+    }
 
     [ObservableProperty]
-    private ObservableObject _currentViewModel = null!;
+    private ObservableObject _currentViewModel;
 
- 
+    [ObservableProperty]
+    private string _title = "Main Menu";
+
 
     [RelayCommand]
     private void GoToAddContact()
     {
-        var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
-        mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<AddContactViewModel>();
+        CurrentViewModel = _serviceProvider.GetRequiredService<AddContactViewModel>();
     }
 
     [RelayCommand]
     private void GoToViewAllContacts()
     {
-        var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
-        mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
+        CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
     }
 
     [RelayCommand]
     private void GoToEditOrDeleteContact()
     {
-        var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
-        mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<EditOrRemoveContactViewModel>();
+        CurrentViewModel = _serviceProvider.GetRequiredService<EditOrRemoveContactViewModel>();
     }
 
 
-    public MainViewModel(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+    
 }
