@@ -35,20 +35,14 @@
                         
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                        
-                            <StackPanel>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Contact-id:"/>
-                                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Id}"/>
-                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding FirstName}"/>
-                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding LastName}"/>
-                                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding PhoneNumber}"/>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding StreetAddress}"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Email}"/>
-                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding PostCode}"/>
-                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding City}"/>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Grid.Column="0" FontSize="12" VerticalAlignment="Center" Text="{Binding DisplayName}"/>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Stretch">
+                                <Button CommandParameter="{Binding .}" Command="{Binding DataContext.GoToViewContactDetailsViewCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" Grid.Column="1" Padding="12 6" Background="AliceBlue" VerticalAlignment="Center" HorizontalAlignment="Center" Content="…"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

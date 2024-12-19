@@ -33,9 +33,14 @@ public partial class App : Application
                 services.AddTransient<EditOrRemoveContactView>();
                 services.AddTransient<ViewAllContactsViewModel>();
                 services.AddTransient<ViewAllContactsView>();
+                services.AddTransient<ViewContactDetailsViewModel>();
+                services.AddTransient<ViewContactDetailsView>();
+                services.AddTransient<SearchContactViewModel>();
+                services.AddTransient<SearchContactView>();
                 services.AddSingleton<IFileService, FileService>();
                 services.AddTransient<Helpers>();
                 services.AddSingleton<IContactService, ContactService>();
+                services.AddSingleton<IContactServiceCRUD, ContactService>();
                 services.AddSingleton(new FileServiceConfig
                 {
                     DirectoryPath = "C:\\Projects\\ContactList\\MainApp\\bin\\Debug\\net8.0\\Data",
@@ -46,7 +51,11 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        var mainViewModel = _host.Services.GetRequiredService<MainViewModel>();
+        mainViewModel.CurrentViewModel = _host.Services.GetRequiredService<MainViewModel>();
+        
         var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+        
         mainWindow.Show();
     }
 }

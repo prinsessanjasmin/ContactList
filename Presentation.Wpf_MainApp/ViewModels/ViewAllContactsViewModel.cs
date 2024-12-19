@@ -12,8 +12,7 @@ public partial class ViewAllContactsViewModel : ObservableObject
     private readonly IServiceProvider _serviceProvider;
     private readonly IContactService _contactService;
     
-    [ObservableProperty]
-    private ObservableObject _currentViewModel;
+
 
     [ObservableProperty]
     private string _title = "Your Contacts";
@@ -25,7 +24,6 @@ public partial class ViewAllContactsViewModel : ObservableObject
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;
-        CurrentViewModel = this; 
         Contacts = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
     }
 
@@ -35,6 +33,16 @@ public partial class ViewAllContactsViewModel : ObservableObject
     {
         var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
         mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<AddContactViewModel>();
+    }
+
+    [RelayCommand]
+    private void GoToViewContactDetailsView(Contact contact) 
+    {
+        var viewContactDetailsViewModel = _serviceProvider.GetRequiredService<ViewContactDetailsViewModel>();
+        viewContactDetailsViewModel.Contact = contact;
+
+        var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
+        mainViewModel.CurrentViewModel = viewContactDetailsViewModel;
     }
 
     [RelayCommand]

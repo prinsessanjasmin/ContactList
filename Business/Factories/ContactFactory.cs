@@ -17,7 +17,10 @@ public class ContactFactory
             PhoneNumber = dto.PhoneNumber,
             StreetAddress = dto.StreetAddress,
             PostCode = dto.PostCode,
-            City = dto.City
+            City = dto.City,
+
+            DisplayName = dto.FirstName + " " + dto.LastName,
+            Address = dto.StreetAddress + " " + dto.PostCode + " " + dto.City,
         };
     }
 }

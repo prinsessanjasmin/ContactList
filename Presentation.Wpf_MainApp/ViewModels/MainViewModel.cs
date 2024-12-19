@@ -12,11 +12,10 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
-        CurrentViewModel = this;
     }
 
     [ObservableProperty]
-    private ObservableObject _currentViewModel;
+    private ObservableObject _currentViewModel = null!;
 
     [ObservableProperty]
     private string _title = "Main Menu";
@@ -39,7 +38,4 @@ public partial class MainViewModel : ObservableObject
     {
         CurrentViewModel = _serviceProvider.GetRequiredService<EditOrRemoveContactViewModel>();
     }
-
-
-    
 }

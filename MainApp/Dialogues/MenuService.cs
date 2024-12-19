@@ -7,9 +7,8 @@ using Business.Services;
 
 namespace Presentation.Console_MainApp.Dialogues;
 
-public class MenuService(IFileService fileService, IContactService contactService, Helpers helper) : IMenuService
+public class MenuService(IContactService contactService, Helpers helper) : IMenuService
 {
-    //private readonly List<Contact> _contactList = fileService.LoadListFromFile();
     private readonly IContactService _contactService = contactService;
     public Helpers helper = helper;
 
@@ -49,9 +48,7 @@ public class MenuService(IFileService fileService, IContactService contactServic
                     Console.WriteLine("You must make a choice!");
                     helper.Pause();
                     break;
-
             }
-
         } while (!exit);
 
         Console.WriteLine("Thanks for using the contact list. Have a good day!");
@@ -92,17 +89,15 @@ public class MenuService(IFileService fileService, IContactService contactServic
         try
         {
             ContactDto contactDto = new(vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
-            helper.Pause();
             return _contactService.CreateNewContact(contactDto);
             
+
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            helper.Pause();
             return false;
-        }
-        
+        } 
     }
 
     public bool ExitApp(bool exit)
