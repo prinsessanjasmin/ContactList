@@ -46,7 +46,7 @@
                 
             </Grid.RowDefinitions>
         </Grid>
-        <Button Grid.Row="3" Margin="8" Padding="8" Content="Save Contact" Command="{Binding SaveCommand}"/>
+        <Button Grid.Row="3" Margin="8" Padding="8" Content="Save Contact" CommandParameter="NewContact" Command="{Binding SaveCommand}"/>
         <Button Grid.Row="4" Margin="8" Padding="8" Content="Cancel" Command="{Binding GoBackCommand}"/>
 
         
@@ -60,8 +60,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-
 
     </Grid>
 </UserControl>

@@ -1,16 +1,17 @@
 ﻿using Business.Models;
 using Business.DTOs;
-using Business.Services;
 
 namespace Business.Factories;
 
 public class ContactFactory
 {
-    public static Contact Create(ContactDto dto)
+
+
+    public static Contact Create(ContactDto dto, string id)
     {
         return new Contact
         {
-            Id = Helpers.CreateUniqueId(),
+            Id = id,
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,

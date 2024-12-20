@@ -11,21 +11,20 @@ public partial class ViewAllContactsViewModel : ObservableObject
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IContactService _contactService;
-    
-
-
-    [ObservableProperty]
-    private string _title = "Your Contacts";
-
-    [ObservableProperty]
-    private ObservableCollection<Contact> _contacts = [];
 
     public ViewAllContactsViewModel(IServiceProvider serviceProvider, IContactService contactService)
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;
-        Contacts = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
+        ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
     }
+
+    [ObservableProperty]
+    private string _title = "Your Contacts";
+
+    [ObservableProperty]
+    private ObservableCollection<Contact> _contactList = new();
+
 
 
     [RelayCommand]

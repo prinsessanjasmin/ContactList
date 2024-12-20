@@ -1,4 +1,4 @@
-﻿namespace Business.Interfaces
+﻿namespace Presentation.Console_MainApp.Dialogues
 {
     public interface IHelpers
     {

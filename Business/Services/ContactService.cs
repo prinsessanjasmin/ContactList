@@ -6,20 +6,19 @@ using System.Diagnostics;
 
 namespace Business.Services;
 
-public class ContactService(IFileService fileService, Helpers helper) : IContactService, IContactServiceCRUD
+public class ContactService(IFileService fileService): IContactService, IContactServiceCRUD
 {
     private readonly List<Contact> _contactList = fileService.LoadListFromFile();
     private readonly IFileService _fileService = fileService;
-    private readonly Helpers _helper = helper;
 
     public bool CreateNewContact(ContactDto dto)
     {
+        string id = CreateUniqueId(); 
         try
         {
-            var Contact = ContactFactory.Create(dto);
+            var Contact = ContactFactory.Create(dto, id);
             _contactList.Add(Contact);
             _fileService.SaveToFile(_contactList);
-            Console.WriteLine($"{Contact.FirstName}'s contact details were added.");
             return true; 
         }
         catch (Exception ex) 
@@ -33,20 +32,10 @@ public class ContactService(IFileService fileService, Helpers helper) : IContact
     {
         if (_contactList.Count <= 0)
         {
-            Console.WriteLine("There are no contacts in this list.");
             return [];
         }
         else
         {
-            Console.WriteLine("-------------- Your contacts: --------------");
-            Console.WriteLine();
-
-            foreach (Contact contact in _contactList)
-            {
-                string contactString = contact.ToString();
-                Console.WriteLine(contactString);
-                Console.WriteLine();
-            }
             return _contactList;
         }
     }
@@ -77,14 +66,14 @@ public class ContactService(IFileService fileService, Helpers helper) : IContact
                 PhoneNumber = contact.PhoneNumber,
                 StreetAddress = contact.StreetAddress,
                 PostCode = contact.PostCode,
-                City = contact.City
+                City = contact.City,
+                
+                DisplayName = contact.FirstName + " " + contact.LastName,
+                Address = contact.StreetAddress + " " + contact.PostCode + " " + contact.City
             };
-            updatedContact.DisplayName = updatedContact.FirstName + " " + updatedContact.LastName;
-            updatedContact.Address = updatedContact.StreetAddress + " " + updatedContact.PostCode + " " + updatedContact.City; 
             
-            int index = _contactList.IndexOf(contact);
-            _contactList.Remove(_contactList[index]); 
-            _contactList.Add(updatedContact);   
+            int index = _contactList.FindIndex(c => c.Id == contact.Id);
+            _contactList[index] = updatedContact;
 
             _fileService.SaveToFile(_contactList);
             return true;
@@ -100,7 +89,7 @@ public class ContactService(IFileService fileService, Helpers helper) : IContact
     {
         try
         {
-            int index = _contactList.IndexOf(contact);
+            int index = _contactList.FindIndex(c => c.Id == contact.Id);
             _contactList.Remove(_contactList[index]);
 
             _fileService.SaveToFile(_contactList);
@@ -113,7 +102,9 @@ public class ContactService(IFileService fileService, Helpers helper) : IContact
         }
     }
 
-    
-
-    
+    public string CreateUniqueId()
+    {
+        string newId = Guid.NewGuid().ToString();
+        return newId;
+    }
 }

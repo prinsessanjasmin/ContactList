@@ -7,8 +7,8 @@ namespace Business.Services;
 
 public class ContactFactoryService : IContactFactoryService
 {
-    public Contact Create(ContactDto dto)
+    public Contact Create(ContactDto dto, string id)
     {
-        return ContactFactory.Create(dto);
+        return ContactFactory.Create(dto, id);
     }
 }

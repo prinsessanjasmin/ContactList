@@ -13,11 +13,19 @@ public partial class EditOrRemoveContactViewModel : ObservableObject
     private readonly IServiceProvider _serviceProvider;
     private readonly IContactServiceCRUD _contactService;
 
+    public EditOrRemoveContactViewModel(IServiceProvider serviceProvider, IContactServiceCRUD contactService)
+    {
+        _serviceProvider = serviceProvider;
+        _contactService = contactService;
+        ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
+        CurrentViewModel = this;
+    }
+
     [ObservableProperty]
     private ObservableObject _currentViewModel;
 
     [ObservableProperty]
-    private ObservableCollection<Contact> _contacts = [];
+    private ObservableCollection<Contact> _contactList = new();
 
     [ObservableProperty]
     private string _title = "Edit or Remove Contact";
@@ -40,6 +48,8 @@ public partial class EditOrRemoveContactViewModel : ObservableObject
     private void DeleteContact(Contact contact)
     {
         bool result = _contactService.DeleteContact(contact);
+        
+
         if (result)
         {
             var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
@@ -52,14 +62,7 @@ public partial class EditOrRemoveContactViewModel : ObservableObject
     {
         var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
         mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
-
     }
 
-    public EditOrRemoveContactViewModel(IServiceProvider serviceProvider, IContactServiceCRUD contactService)
-    {
-        _serviceProvider = serviceProvider;
-        _contactService = contactService;
-        _contacts = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
-        CurrentViewModel = this; 
-    }
+  
 }

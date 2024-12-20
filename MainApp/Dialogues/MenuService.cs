@@ -4,13 +4,17 @@ using Business.Models;
 using Business.DTOs;
 using Business.Interfaces;
 using Business.Services;
+using System.Diagnostics.Eventing.Reader;
+using System.Diagnostics;
 
 namespace Presentation.Console_MainApp.Dialogues;
 
-public class MenuService(IContactService contactService, Helpers helper) : IMenuService
+public class MenuService(IContactService contactService) : IMenuService
 {
     private readonly IContactService _contactService = contactService;
-    public Helpers helper = helper;
+    
+    Helpers helper = new Helpers();
+    
 
     public void MainMenu()
     {
@@ -20,7 +24,7 @@ public class MenuService(IContactService contactService, Helpers helper) : IMenu
         do
         {
             Console.Clear();
-            Console.WriteLine("------ Welcome to your contact list! ------");
+            Console.WriteLine("------ Welcome to the Address Book! ------");
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. View all contacts");
             Console.WriteLine("2. Create new conatct");
@@ -32,11 +36,13 @@ public class MenuService(IContactService contactService, Helpers helper) : IMenu
             switch (choice)
             {
                 case "1":
-                    _contactService.ViewAllContacts();
+                    ViewAllContactsOption();
+                    
                     helper.Pause();
                     break;
 
                 case "2":
+
                     CreateNewContactOption();
                     helper.Pause();
                     break;
@@ -55,6 +61,26 @@ public class MenuService(IContactService contactService, Helpers helper) : IMenu
         Console.ReadKey();
     }
 
+    public void ViewAllContactsOption()
+    {
+        List<Contact> contactList = _contactService.ViewAllContacts();
+        if (contactList.Count > 0)
+        {
+            Console.WriteLine("There are no contacts in this list.");
+        }
+        else
+        {
+            Console.WriteLine("-------------- Your contacts: --------------");
+            Console.WriteLine();
+
+            foreach (Contact contact in contactList)
+            {
+                string contactString = contact.ToString();
+                Console.WriteLine(contactString);
+                Console.WriteLine();
+            }
+        }
+    }
     public bool CreateNewContactOption()
     {
         Console.WriteLine("------------- Add new contact --------------");
@@ -89,9 +115,13 @@ public class MenuService(IContactService contactService, Helpers helper) : IMenu
         try
         {
             ContactDto contactDto = new(vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
-            return _contactService.CreateNewContact(contactDto);
-            
-
+            var result = _contactService.CreateNewContact(contactDto);
+            if (result)
+            {
+                Console.WriteLine($"The contact details were added.");
+                return true;
+            }
+            return false;
         }
         catch (Exception ex)
         {

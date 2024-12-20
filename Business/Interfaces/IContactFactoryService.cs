@@ -5,6 +5,6 @@ namespace Business.Interfaces
 {
     public interface IContactFactoryService
     {
-        Contact Create(ContactDto dto);
+        Contact Create(ContactDto dto, string id);
     }
 }

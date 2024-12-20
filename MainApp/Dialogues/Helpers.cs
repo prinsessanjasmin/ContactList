@@ -1,10 +1,8 @@
-﻿using Business.Interfaces;
-using Business.Models;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
-namespace Business.Services;
+namespace Presentation.Console_MainApp.Dialogues;
 
-public class Helpers : IHelpers
+internal class Helpers : IHelpers
 {
     public void Pause()
     {
@@ -12,12 +10,6 @@ public class Helpers : IHelpers
         Console.WriteLine("-------------------------------------------");
         Console.WriteLine("Press any key to return to the main menu");
         Console.ReadKey();
-    }
-
-    public static string CreateUniqueId()
-    {
-        string newId = Guid.NewGuid().ToString();
-        return newId;
     }
 
     public string ValidateInput(string input, string expected)
