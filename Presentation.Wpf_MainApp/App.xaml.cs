@@ -37,9 +37,9 @@ public partial class App : Application
                 services.AddTransient<ViewContactDetailsView>();
                 services.AddTransient<SearchContactViewModel>();
                 services.AddTransient<SearchContactView>();
-                services.AddScoped<IFileService, FileService>();
-                services.AddScoped<IContactService, ContactService>();
-                services.AddScoped<IContactServiceCRUD, ContactService>();
+                services.AddTransient<IFileService, FileService>();
+                services.AddTransient<IContactService, ContactService>();
+                services.AddTransient<IContactServiceCRUD, ContactService>();
                 services.AddSingleton(new FileServiceConfig
                 {
                     DirectoryPath = "C:\\Projects\\ContactList\\MainApp\\bin\\Debug\\net8.0\\Data",
