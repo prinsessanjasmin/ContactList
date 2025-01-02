@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System;
+using System.ComponentModel;
 
 namespace Business.Models;
 
-public class Contact
+public partial class Contact 
 {
     public string Id { get; set; } = null!; 
     public string FirstName { get; set; } = null!; 
@@ -17,7 +18,8 @@ public class Contact
     public string City { get; set; } = null!;
     public string DisplayName { get; set; } = null!; 
     public string Address { get; set; } = null!;
-    
+
+
     public override string ToString() 
     {
         return $"Contact id: {Id}\nName: {DisplayName}\nEmail: {Email}\nPhone: {PhoneNumber}\nAddress: {Address}";

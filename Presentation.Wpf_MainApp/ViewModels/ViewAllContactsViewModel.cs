@@ -16,8 +16,23 @@ public partial class ViewAllContactsViewModel : ObservableObject
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;
-        ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
+        UpdateList(); 
+
+        _contactService.ContactListUpdated += (sender, e) =>
+        {
+            UpdateList();
+        };
     }
+
+    public void UpdateList()
+    {
+        ContactList.Clear();
+        foreach (var contact in _contactService.ViewAllContacts())
+        {
+            ContactList.Add(contact);
+        }
+    }
+
 
     [ObservableProperty]
     private string _title = "Your Contacts";

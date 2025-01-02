@@ -19,6 +19,7 @@ public class ContactService(IFileService fileService): IContactService, IContact
             var Contact = ContactFactory.Create(dto, id);
             _contactList.Add(Contact);
             _fileService.SaveToFile(_contactList);
+            ContactListUpdated?.Invoke(this, EventArgs.Empty);
             return true; 
         }
         catch (Exception ex) 
@@ -27,6 +28,8 @@ public class ContactService(IFileService fileService): IContactService, IContact
             return false;
         }
     }
+
+    public event EventHandler? ContactListUpdated;
 
     public List<Contact> ViewAllContacts()
     {
@@ -53,6 +56,23 @@ public class ContactService(IFileService fileService): IContactService, IContact
         return searchResult; 
     }
 
+    public Contact FindContactById(string id) 
+    {
+        var emptyContact = ContactDto.CreateEmpty();
+        Contact empty = ContactFactory.Create(emptyContact, id);
+
+        foreach (Contact contact in _contactList)
+        {
+            if (contact.Id == id)
+            {
+                ContactListUpdated?.Invoke(this, EventArgs.Empty);
+                return contact;
+                
+            }
+        }
+        return empty;
+    }
+
     public bool UpdateContact(Contact contact)
     {
         try
@@ -76,6 +96,7 @@ public class ContactService(IFileService fileService): IContactService, IContact
             _contactList[index] = updatedContact;
 
             _fileService.SaveToFile(_contactList);
+            ContactListUpdated?.Invoke(this, EventArgs.Empty);
             return true;
         }
         catch (Exception ex)
@@ -93,6 +114,7 @@ public class ContactService(IFileService fileService): IContactService, IContact
             _contactList.Remove(_contactList[index]);
 
             _fileService.SaveToFile(_contactList);
+            ContactListUpdated?.Invoke(this, EventArgs.Empty);
             return true;
         }
         catch (Exception ex)

@@ -19,7 +19,6 @@ public partial class ViewContactDetailsViewModel : ObservableObject
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;
-        //ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
     }
 
     [ObservableProperty]
@@ -28,8 +27,14 @@ public partial class ViewContactDetailsViewModel : ObservableObject
     [ObservableProperty]
     private Contact _contact = null!;
 
-    //[ObservableProperty]
-    //private ObservableCollection<Contact> _contactList = [];
+    public void LoadContact(string contactId)
+    {
+        Contact = _contactService.FindContactById(contactId);
+        if (Contact.FirstName == null)
+        {
+            throw new Exception("Contact not found.");
+        }
+    }
 
     [RelayCommand]
     private void EditContact(Contact contact)
@@ -48,7 +53,6 @@ public partial class ViewContactDetailsViewModel : ObservableObject
 
         if (result)
         {
-            //ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
             var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
             mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
         }

@@ -18,15 +18,15 @@
 
         <StackPanel Grid.Row="2" Margin="0 12 0 0 ">
             <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Name:"/>
-            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.DisplayName}" />
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.DisplayName, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Email:"/>
-            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Email}" />
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Email, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Phone number:"/>
-            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.PhoneNumber}" />
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.PhoneNumber, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Address:"/>
-            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Address}" />
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Address, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Contact id:"/>
-            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Id}" />
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Id, Mode=TwoWay}" />
         </StackPanel>
 
         <Button Grid.Row="3" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Edit Contact" Command="{Binding EditContactCommand}" CommandParameter="{Binding Contact}" />

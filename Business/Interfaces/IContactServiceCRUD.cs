@@ -6,6 +6,8 @@ namespace Business.Interfaces
     {
         bool UpdateContact(Contact contact);
         bool DeleteContact(Contact contact);
-        IEnumerable<Contact> FindContact(string searchWord); 
+        IEnumerable<Contact> FindContact(string searchWord);
+
+        Contact FindContactById(string id); 
     }
 }

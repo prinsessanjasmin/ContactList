@@ -14,9 +14,6 @@ public partial class AddContactViewModel : ObservableObject
     private readonly IServiceProvider _serviceProvider;
     private readonly IContactServiceCRUD _contactService;
 
-    //[ObservableProperty]
-    //private ObservableCollection<Contact> _contactList = new();
-
     [ObservableProperty]
     private ContactDto _newContact;
 
@@ -24,7 +21,6 @@ public partial class AddContactViewModel : ObservableObject
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;
-        //ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
         NewContact = ContactDto.CreateEmpty();
         CurrentViewModel = this;
     }
@@ -42,7 +38,6 @@ public partial class AddContactViewModel : ObservableObject
 
         if (result) 
         {
-            //ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
             var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
             mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
         }
