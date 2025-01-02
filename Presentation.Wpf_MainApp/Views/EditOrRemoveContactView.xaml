@@ -8,40 +8,40 @@
              xmlns:models="clr-namespace:Business.Models;assembly=Business"
              d:DataContext="{d:DesignInstance Type=viewmodels:EditOrRemoveContactViewModel}"
              mc:Ignorable="d" 
-             Background="White"
+             Background="DarkSlateGray"
              d:DesignHeight="550" d:DesignWidth="300">
     <Grid>
-        <TextBlock Grid.Row="0" Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
+        <TextBlock Style="{StaticResource Text}" Grid.Row="0" Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
         <StackPanel Grid.Row="1">
-            <TextBlock Padding="8" Text="{Binding Title}" HorizontalAlignment="Center" Foreground="Black"/>
+            <TextBlock Style="{StaticResource Text}" Padding="8" Text="{Binding Title}" HorizontalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0 12 0 0 ">
-            <TextBlock FontWeight="Bold" Text="First name:"/>
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="First name:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.FirstName}" />
 
-            <TextBlock FontWeight="Bold" Text="Last name:"/>
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Last name:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.LastName}" />
 
-            <TextBlock FontWeight="Bold" Text="Email:"/>
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Email:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.Email}" />
-                
-            <TextBlock FontWeight="Bold" Text="Phone number:"/>
+
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Phone number:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.PhoneNumber}" />
-                
-            <TextBlock FontWeight="Bold" Text="Street address:" />
+
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Street address:" />
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.StreetAddress}" />
 
-            <TextBlock FontWeight="Bold" Text="Post Code:"/>
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Post Code:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.PostCode}" />
 
-            <TextBlock FontWeight="Bold" Text="City:"/>
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="City:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.City}" />
 
         </StackPanel>
 
-        <Button Grid.Row="3" Margin="8" Padding="8" Content="Save Changes" Command="{Binding SaveContactCommand}" CommandParameter="{Binding Contact}"/>
-        <Button Grid.Row="4" Margin="8" Padding="8" Content="Go Back" Command="{Binding GoBackCommand}"/>
+        <Button Grid.Row="3" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Save Changes" Command="{Binding SaveContactCommand}" CommandParameter="{Binding Contact}"/>
+        <Button Grid.Row="4" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Go Back" Command="{Binding GoBackCommand}"/>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

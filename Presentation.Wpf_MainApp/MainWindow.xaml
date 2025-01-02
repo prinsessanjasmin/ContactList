@@ -10,9 +10,9 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         
         mc:Ignorable="d"
-        Background="White"
-        d:DesignHeight="550" d:DesignWidth="300">
-
+        Background="DarkSlateGray"
+        d:DesignHeight="550" d:DesignWidth="300"
+        Height="825" Width="450">
 
     <Grid Margin="15">
         

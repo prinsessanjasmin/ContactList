@@ -8,30 +8,30 @@
              xmlns:models="clr-namespace:Business.Models;assembly=Business"
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewContactDetailsViewModel}"
              mc:Ignorable="d" 
-             Background="White"
+             Background="DarkSlateGray"
              d:DesignHeight="550" d:DesignWidth="300">
     <Grid>
-        <TextBlock Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
+        <TextBlock Style="{StaticResource Text}" Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
         <StackPanel Grid.Row="1">
-            <TextBlock Padding="8" Text="{Binding Title}" HorizontalAlignment="Center" Foreground="Black"/>
+            <TextBlock Style="{StaticResource Text}" Padding="8" Text="{Binding Title}" HorizontalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0 12 0 0 ">
-            <TextBlock FontWeight="Bold" Text="Name:"/>
-            <TextBlock Padding="0 0 0 12" Text="{Binding Contact.DisplayName}" />
-            <TextBlock FontWeight="Bold" Text="Email:"/>
-            <TextBlock Padding="0 0 0 12" Text="{Binding Contact.Email}" />
-            <TextBlock FontWeight="Bold" Text="Phone number:"/>
-            <TextBlock Padding="0 0 0 12" Text="{Binding Contact.PhoneNumber}" />
-            <TextBlock FontWeight="Bold" Text="Address:"/>
-            <TextBlock Padding="0 0 0 12" Text="{Binding Contact.Address}" />
-            <TextBlock FontWeight="Bold" Text="Contact id:"/>
-            <TextBlock Padding="0 0 0 12" Text="{Binding Contact.Id}" />
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Name:"/>
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.DisplayName}" />
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Email:"/>
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Email}" />
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Phone number:"/>
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.PhoneNumber}" />
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Address:"/>
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Address}" />
+            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Contact id:"/>
+            <TextBlock Style="{StaticResource Text}" Padding="0 0 0 12" Text="{Binding Contact.Id}" />
         </StackPanel>
 
-        <Button Grid.Row="3" Margin="8" Padding="8" Content="Edit Contact" Command="{Binding EditContactCommand}" CommandParameter="{Binding Contact}" />
-        <Button Grid.Row="4" Margin="8" Padding="8" Content="Delete Contact" Command="{Binding DeleteContactCommand}" CommandParameter="{Binding Contact}"/>
-        <Button Grid.Row="5" Margin="8" Padding="8" Content="Cancel" Command="{Binding GoBackCommand}"/>
+        <Button Grid.Row="3" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Edit Contact" Command="{Binding EditContactCommand}" CommandParameter="{Binding Contact}" />
+        <Button Grid.Row="4" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Delete Contact" Command="{Binding DeleteContactCommand}" CommandParameter="{Binding Contact}"/>
+        <Button Grid.Row="5" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Cancel" Command="{Binding GoBackCommand}"/>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
