@@ -7,7 +7,6 @@ namespace Business.Interfaces
     {
         bool CreateNewContact(ContactDto dto);
         List<Contact> ViewAllContacts();
-        string CreateUniqueId();
 
         event EventHandler? ContactListUpdated;
     }

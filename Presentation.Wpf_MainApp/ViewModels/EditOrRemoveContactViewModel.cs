@@ -1,5 +1,7 @@
-﻿using Business.Interfaces;
+﻿using Business.DTOs;
+using Business.Interfaces;
 using Business.Models;
+using Business.Factories;
 using Business.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,12 +15,16 @@ public partial class EditOrRemoveContactViewModel : ObservableObject
     private readonly IServiceProvider _serviceProvider;
     private readonly IContactServiceCRUD _contactService;
 
+    [ObservableProperty]
+    private ContactDto _contactToEdit;
+
     public EditOrRemoveContactViewModel(IServiceProvider serviceProvider, IContactServiceCRUD contactService)
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;
         ContactList = new ObservableCollection<Contact>(_contactService.ViewAllContacts());
         CurrentViewModel = this;
+        ContactToEdit = ContactFactory.CreateContactDto(Contact);
     }
 
     [ObservableProperty]
@@ -33,18 +39,28 @@ public partial class EditOrRemoveContactViewModel : ObservableObject
     [ObservableProperty]
     private Contact _contact = new();
 
+
+
     [RelayCommand]
-    private void SaveContact(Contact contact)
+    private void SaveContact(ContactDto ContactToEdit)
     {
-        //Contact.ValidateModel();
 
+        ContactToEdit.ValidateModel();
 
-        bool result = _contactService.UpdateContact(contact);
-
-        if (result)
+        if (ContactToEdit.HasErrors)
         {
-            var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
-            mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
+            return;
+        }
+        else
+        {
+            Contact updatedContact = ContactFactory.CreateContact(ContactToEdit);
+            bool result = _contactService.UpdateContact(updatedContact);
+
+            if (result)
+            {
+                var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
+                mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
+            }
         }
     }
 

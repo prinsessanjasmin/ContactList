@@ -17,38 +17,58 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0 12 0 0 ">
-            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="First name:"/>
-            <TextBox Padding="0 0 0 12" Text="{Binding Contact.FirstName}" />
-
-            <!--<StackPanel Margin="0 0 0 6">
+            <StackPanel Margin="0 0 0 6">
                 <TextBlock Style="{StaticResource Text}" Text="First name:" Grid.Row="0" Padding="6 0" />
-                <TextBox x:Name="NameTextBox" Margin="6" Padding="6" Text="{Binding Contact.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBox x:Name="EditFirstNameTextBox" Margin="6" Padding="6" Text="{Binding ContactToEdit.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                 <TextBlock Style="{StaticResource ErrorMessage}"
-                Text="{Binding ElementName=NameTextBox, Path=(Validation.Errors)[0].ErrorContent}"
-                Visibility="{Binding ElementName=NameTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
-            </StackPanel>-->
-
-            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Last name:"/>
-            <TextBox Padding="0 0 0 12" Text="{Binding Contact.LastName}" />
-
-            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Email:"/>
-            <TextBox Padding="0 0 0 12" Text="{Binding Contact.Email}" />
-
-            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Phone number:"/>
-            <TextBox Padding="0 0 0 12" Text="{Binding Contact.PhoneNumber}" />
-
-            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Street address:" />
-            <TextBox Padding="0 0 0 12" Text="{Binding Contact.StreetAddress}" />
-
-            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Post Code:"/>
-            <TextBox Padding="0 0 0 12" Text="{Binding Contact.PostCode}" />
-
-            <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="City:"/>
-            <TextBox Padding="0 0 0 12" Text="{Binding Contact.City}" />
-
+                            Text="{Binding ElementName=EditFirstNameTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                            Visibility="{Binding ElementName=EditFirstNameTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 6">
+                <TextBlock Style="{StaticResource Text}" Text="Last name:" Grid.Row="0" Padding="6 0" />
+                <TextBox x:Name="EditLastNameTextBox" Margin="6" Padding="6" Text="{Binding ContactToEdit.LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBlock Style="{StaticResource ErrorMessage}"
+                            Text="{Binding ElementName=EditLastNameTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                            Visibility="{Binding ElementName=EditLastNameTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 6">
+                <TextBlock Style="{StaticResource Text}" Text="Email:" Grid.Row="0" Padding="6 0" />
+                <TextBox x:Name="EditEmailTextBox" Margin="6" Padding="6" Text="{Binding ContactToEdit.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBlock Style="{StaticResource ErrorMessage}"
+                            Text="{Binding ElementName=EditEmailTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                            Visibility="{Binding ElementName=EditEmailTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 6">
+                <TextBlock Style="{StaticResource Text}" Text="Phone number:" Grid.Row="0" Padding="6 0" />
+                <TextBox x:Name="EditPhoneNumberTextBox" Margin="6" Padding="6" Text="{Binding ContactToEdit.PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBlock Style="{StaticResource ErrorMessage}"
+                            Text="{Binding ElementName=EditPhoneNumberTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                            Visibility="{Binding ElementName=EditPhoneNumberTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 6">
+                <TextBlock Style="{StaticResource Text}" Text="Street Address:" Grid.Row="0" Padding="6 0" />
+                <TextBox x:Name="EditStreetAddressTextBox" Margin="6" Padding="6" Text="{Binding ContactToEdit.StreetAddress, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBlock Style="{StaticResource ErrorMessage}"
+                            Text="{Binding ElementName=EditStreetAddressTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                            Visibility="{Binding ElementName=EditStreetAddressTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 6">
+                <TextBlock Style="{StaticResource Text}" Text="Post code:" Grid.Row="0" Padding="6 0" />
+                <TextBox x:Name="EditPostCodeTextBox" Margin="6" Padding="6" Text="{Binding ContactToEdit.PostCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBlock Style="{StaticResource ErrorMessage}"
+                            Text="{Binding ElementName=EditPostCodeTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                            Visibility="{Binding ElementName=EditPostCodeTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 6">
+                <TextBlock Style="{StaticResource Text}" Text="City:" Grid.Row="0" Padding="6 0" />
+                <TextBox x:Name="EditCityTextBox" Margin="6" Padding="6" Text="{Binding ContactToEdit.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBlock Style="{StaticResource ErrorMessage}"
+                            Text="{Binding ElementName=EditCityTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                            Visibility="{Binding ElementName=EditCityTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
         </StackPanel>
 
-        <Button Grid.Row="3" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Save Changes" Command="{Binding SaveContactCommand}" CommandParameter="{Binding Contact}"/>
+        <Button Grid.Row="3" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Save Changes" Command="{Binding SaveContactCommand}" CommandParameter="{Binding ContactToEdit}"/>
         <Button Grid.Row="4" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Go Back" Command="{Binding GoBackCommand}"/>
 
         <Grid.RowDefinitions>

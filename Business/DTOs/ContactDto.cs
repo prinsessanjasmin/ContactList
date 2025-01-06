@@ -5,6 +5,8 @@ namespace Business.DTOs;
 
 public partial class ContactDto : ObservableValidator
 {
+    public string Id {  get; set; }
+
     [ObservableProperty]
     [Required(ErrorMessage = "First name is required")]
     [MinLength(2, ErrorMessage = "First name must contain at least two characters.")]
@@ -76,8 +78,9 @@ public partial class ContactDto : ObservableValidator
         ValidateProperty(value, nameof(City));
     }
 
-    public ContactDto(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postCode, string city)
+    public ContactDto(string id, string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postCode, string city)
     {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
@@ -96,6 +99,6 @@ public partial class ContactDto : ObservableValidator
 
     public static ContactDto CreateEmpty()
     {
-        return new ContactDto(null!, null!, null!, null!, null!, null!, null!);
+        return new ContactDto(null!, null!, null!, null!, null!, null!, null!, null!);
     }
 }

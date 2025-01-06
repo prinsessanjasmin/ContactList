@@ -114,7 +114,7 @@ public class MenuService(IContactService contactService) : IMenuService
 
         try
         {
-            ContactDto contactDto = new(vFirstName.Trim(), vLastName.Trim(), vEmail.Trim(), vPhoneNumber.Trim(), vStreetAddress.Trim(), vPostCode.Trim(), vCity.Trim());
+            ContactDto contactDto = new(null!, vFirstName.Trim(), vLastName.Trim(), vEmail.Trim(), vPhoneNumber.Trim(), vStreetAddress.Trim(), vPostCode.Trim(), vCity.Trim());
             var result = _contactService.CreateNewContact(contactDto);
             if (result)
             {

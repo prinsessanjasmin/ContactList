@@ -13,10 +13,9 @@ public class ContactService(IFileService fileService): IContactService, IContact
 
     public bool CreateNewContact(ContactDto dto)
     {
-        string id = CreateUniqueId(); 
         try
         {
-            var Contact = ContactFactory.Create(dto, id);
+            var Contact = ContactFactory.CreateContact(dto);
             _contactList.Add(Contact);
             _fileService.SaveToFile(_contactList);
             ContactListUpdated?.Invoke(this, EventArgs.Empty);
@@ -59,7 +58,7 @@ public class ContactService(IFileService fileService): IContactService, IContact
     public Contact FindContactById(string id) 
     {
         var emptyContact = ContactDto.CreateEmpty();
-        Contact empty = ContactFactory.Create(emptyContact, id);
+        Contact empty = ContactFactory.CreateContact(emptyContact);
 
         foreach (Contact contact in _contactList)
         {
@@ -77,22 +76,28 @@ public class ContactService(IFileService fileService): IContactService, IContact
     {
         try
         {
-            Contact updatedContact = new()
-            {
-                Id = contact.Id,
-                FirstName = contact.FirstName,
-                LastName = contact.LastName,
-                Email = contact.Email,
-                PhoneNumber = contact.PhoneNumber,
-                StreetAddress = contact.StreetAddress,
-                PostCode = contact.PostCode,
-                City = contact.City,
-                
-                DisplayName = contact.FirstName + " " + contact.LastName,
-                Address = contact.StreetAddress + " " + contact.PostCode + " " + contact.City
-            };
-            
             int index = _contactList.FindIndex(c => c.Id == contact.Id);
+            if (index == -1)
+            {
+                Debug.WriteLine($"Contact with Id {contact.Id} not found.");
+                return false; // Contact not found
+            }
+
+            //^ChatGPT 4o
+
+            Contact updatedContact = ContactFactory.CreateContact(
+                new ContactDto(
+                    contact.Id,
+                    contact.FirstName,
+                    contact.LastName,
+                    contact.Email,
+                    contact.PhoneNumber,
+                    contact.StreetAddress,
+                    contact.PostCode,
+                    contact.City
+                )
+            );
+            
             _contactList[index] = updatedContact;
 
             _fileService.SaveToFile(_contactList);
@@ -124,9 +129,9 @@ public class ContactService(IFileService fileService): IContactService, IContact
         }
     }
 
-    public string CreateUniqueId()
-    {
-        string newId = Guid.NewGuid().ToString();
-        return newId;
-    }
+    //public string CreateUniqueId()
+    //{
+    //    string newId = Guid.NewGuid().ToString();
+    //    return newId;
+    //}
 }

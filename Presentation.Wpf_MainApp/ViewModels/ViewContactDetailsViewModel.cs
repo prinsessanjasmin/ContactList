@@ -1,5 +1,7 @@
-﻿using Business.Interfaces;
+﻿using Business.Factories;
+using Business.Interfaces;
 using Business.Models;
+using Business.DTOs;
 using Business.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -39,8 +41,9 @@ public partial class ViewContactDetailsViewModel : ObservableObject
     [RelayCommand]
     private void EditContact(Contact contact)
     {
+        ContactDto contactDto = ContactFactory.CreateContactDto(contact);
         var editOrRemoveContactViewModel = _serviceProvider.GetRequiredService<EditOrRemoveContactViewModel>();
-        editOrRemoveContactViewModel.Contact = contact;
+        editOrRemoveContactViewModel.ContactToEdit = contactDto;
 
         var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
         mainViewModel.CurrentViewModel = editOrRemoveContactViewModel;

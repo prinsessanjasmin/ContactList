@@ -5,13 +5,13 @@ namespace Business.Factories;
 
 public class ContactFactory
 {
-
-
-    public static Contact Create(ContactDto dto, string id)
+    public static Contact CreateContact(ContactDto dto)
     {
+        if (dto == null) throw new ArgumentNullException(nameof(dto));
+
         return new Contact
         {
-            Id = id,
+            Id = dto.Id ?? Guid.NewGuid().ToString(),
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,
@@ -23,5 +23,22 @@ public class ContactFactory
             DisplayName = dto.FirstName + " " + dto.LastName,
             Address = dto.StreetAddress + " " + dto.PostCode + " " + dto.City,
         };
+    }
+
+    public static ContactDto CreateContactDto(Contact contact) 
+    {
+        if (contact == null) throw new ArgumentNullException(nameof(contact));
+
+        return new ContactDto(
+        
+            contact.Id,
+            contact.FirstName,
+            contact.LastName,
+            contact.Email,
+            contact.PhoneNumber,
+            contact.StreetAddress,
+            contact.PostCode,
+            contact.City
+        );
     }
 }
