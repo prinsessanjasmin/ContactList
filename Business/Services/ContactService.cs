@@ -128,10 +128,4 @@ public class ContactService(IFileService fileService): IContactService, IContact
             return false;
         }
     }
-
-    //public string CreateUniqueId()
-    //{
-    //    string newId = Guid.NewGuid().ToString();
-    //    return newId;
-    //}
 }

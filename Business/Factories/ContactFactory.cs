@@ -12,16 +12,16 @@ public class ContactFactory
         return new Contact
         {
             Id = dto.Id ?? Guid.NewGuid().ToString(),
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
+            FirstName = dto.FirstName.Trim(),
+            LastName = dto.LastName.Trim(),
             Email = dto.Email,
             PhoneNumber = dto.PhoneNumber,
-            StreetAddress = dto.StreetAddress,
-            PostCode = dto.PostCode,
-            City = dto.City,
+            StreetAddress = dto.StreetAddress.Trim(),
+            PostCode = dto.PostCode.Trim(),
+            City = dto.City.Trim(),
 
-            DisplayName = dto.FirstName + " " + dto.LastName,
-            Address = dto.StreetAddress + " " + dto.PostCode + " " + dto.City,
+            DisplayName = $"{dto.FirstName.Trim()} {dto.LastName.Trim()}",
+            Address = $"{dto.StreetAddress.Trim()} {dto.PostCode.Trim()} {dto.City.Trim()}",
         };
     }
 
