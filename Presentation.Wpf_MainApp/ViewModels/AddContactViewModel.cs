@@ -1,11 +1,9 @@
 ﻿using Business.DTOs;
 using Business.Interfaces;
-using Business.Models;
-using Business.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Presentation.Wpf_MainApp.ViewModels;
 
@@ -34,12 +32,21 @@ public partial class AddContactViewModel : ObservableObject
     [RelayCommand]
     private void Save()
     {
-        var result = _contactService.CreateNewContact(NewContact);
+        NewContact.ValidateModel();
 
-        if (result) 
+        if (NewContact.HasErrors) 
         {
-            var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
-            mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
+            return; 
+        }
+        else
+        {
+            var result = _contactService.CreateNewContact(NewContact);
+
+            if (result)
+            {
+                var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
+                mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
+            }
         }
     }
 

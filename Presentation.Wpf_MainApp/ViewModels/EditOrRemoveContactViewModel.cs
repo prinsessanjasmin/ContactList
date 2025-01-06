@@ -36,6 +36,9 @@ public partial class EditOrRemoveContactViewModel : ObservableObject
     [RelayCommand]
     private void SaveContact(Contact contact)
     {
+        //Contact.ValidateModel();
+
+
         bool result = _contactService.UpdateContact(contact);
 
         if (result)

@@ -11,36 +11,93 @@
         <Setter Property="Margin" Value="30 10" />
         <Setter Property="Padding" Value="8" />
         <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Width" Value="250" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="ButtonBorder" Background="Transparent" CornerRadius="20">
+                    <Border x:Name="ButtonBorder"   
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Margin="{TemplateBinding Margin}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="5">
                         <TextBlock x:Name="ContentText"
-                                   Text="{TemplateBinding Content}"
-                                   Foreground="{TemplateBinding Foreground}"
-                                   Background="{TemplateBinding Background}"
-                                   FontFamily="{TemplateBinding FontFamily}"
-                                   FontSize="{TemplateBinding FontSize}"
-                                   FontWeight="{TemplateBinding FontWeight}"
-                                   Padding="{TemplateBinding Padding}"
-                                   Margin="{TemplateBinding Margin}"
+                            Text="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Padding="{TemplateBinding Padding}"
+                            TextAlignment="Center"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
                         />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="LightGray" />
                             <Setter TargetName="ContentText" Property="Foreground" Value="LightSeaGreen"/>
-                            <Setter TargetName="ContentText" Property="Background" Value="LightGray"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="Orange"/>
                             <Setter TargetName="ContentText" Property="Foreground" Value="white"/>
-                            <Setter TargetName="ContentText" Property="Background" Value="Orange"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-                
-        
     </Style>
-    
+
+    <Style x:Key="SymbolButtons" TargetType="Button">
+        <Setter Property="Background" Value="LightSeaGreen"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"   
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Margin="{TemplateBinding Margin}"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="5">
+                        <TextBlock x:Name="ContentText"
+                        Text="{TemplateBinding Content}"
+                        Foreground="{TemplateBinding Foreground}"
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Padding="{TemplateBinding Padding}"
+                        TextAlignment="Center"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                    />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="LightGray" />
+                            <Setter TargetName="ContentText" Property="Foreground" Value="LightSeaGreen"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="Orange"/>
+                            <Setter TargetName="ContentText" Property="Foreground" Value="white"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+
+    </Style>
+
+
 </ResourceDictionary>
+
+<!--Content="&#xe712;"-->

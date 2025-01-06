@@ -64,7 +64,7 @@ public class MenuService(IContactService contactService) : IMenuService
     public void ViewAllContactsOption()
     {
         List<Contact> contactList = _contactService.ViewAllContacts();
-        if (contactList.Count > 0)
+        if (contactList.Count < 0)
         {
             Console.WriteLine("There are no contacts in this list.");
         }
@@ -114,7 +114,7 @@ public class MenuService(IContactService contactService) : IMenuService
 
         try
         {
-            ContactDto contactDto = new(vFirstName, vLastName, vEmail, vPhoneNumber, vStreetAddress, vPostCode, vCity);
+            ContactDto contactDto = new(vFirstName.Trim(), vLastName.Trim(), vEmail.Trim(), vPhoneNumber.Trim(), vStreetAddress.Trim(), vPostCode.Trim(), vCity.Trim());
             var result = _contactService.CreateNewContact(contactDto);
             if (result)
             {

@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:EditOrRemoveContactViewModel}"
              mc:Ignorable="d" 
              Background="DarkSlateGray"
-             d:DesignHeight="550" d:DesignWidth="300">
+             d:DesignHeight="450" d:DesignWidth="300">
     <Grid>
         <TextBlock Style="{StaticResource Text}" Grid.Row="0" Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
         <StackPanel Grid.Row="1">
@@ -19,6 +19,14 @@
         <StackPanel Grid.Row="2" Margin="0 12 0 0 ">
             <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="First name:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.FirstName}" />
+
+            <!--<StackPanel Margin="0 0 0 6">
+                <TextBlock Style="{StaticResource Text}" Text="First name:" Grid.Row="0" Padding="6 0" />
+                <TextBox x:Name="NameTextBox" Margin="6" Padding="6" Text="{Binding Contact.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                <TextBlock Style="{StaticResource ErrorMessage}"
+                Text="{Binding ElementName=NameTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                Visibility="{Binding ElementName=NameTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>-->
 
             <TextBlock Style="{StaticResource Text}" FontWeight="Bold" Text="Last name:"/>
             <TextBox Padding="0 0 0 12" Text="{Binding Contact.LastName}" />
