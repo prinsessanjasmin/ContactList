@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Business.DTOs;
+using Moq; 
 
-namespace Business.Tests.DTOs
+namespace Business.Tests.DTOs; 
+
+public class ContactDto_Tests
 {
-    internal class ContactDto_Tests
+    [Fact]
+    public void ContactDto_ShouldReturnEmptyDto()
     {
+        // arrange 
+        ContactDto dto = new(null!, null!, null!, null!, null!, null!, null!, null!);
+
+        // act 
+        var result = ContactDto.CreateEmpty(); 
+
+        // assert
+        Assert.IsType<ContactDto>(result);
+        Assert.Same(dto.FirstName, result.FirstName);
+    }
+
+    [Fact]
+    public void ValidateModel_ShouldDoSomething()
+    {
+
     }
 }

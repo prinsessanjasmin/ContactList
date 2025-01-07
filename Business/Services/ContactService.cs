@@ -6,16 +6,27 @@ using System.Diagnostics;
 
 namespace Business.Services;
 
-public class ContactService(IFileService fileService): IContactService, IContactServiceCRUD
+public class ContactService : IContactService, IContactServiceCRUD
 {
-    private readonly List<Contact> _contactList = fileService.LoadListFromFile();
-    private readonly IFileService _fileService = fileService;
+    private List<Contact> _contactList = [];
+    private readonly IFileService _fileService;
+    private readonly IContactFactoryService _contactFactoryService;
+
+    public ContactService(IFileService fileService, IContactFactoryService contactFactoryService)
+    {
+        _fileService = fileService;
+        _contactFactoryService = contactFactoryService;
+
+        _contactList = _fileService.LoadListFromFile();
+    }
 
     public bool CreateNewContact(ContactDto dto)
     {
         try
         {
-            var Contact = ContactFactory.CreateContact(dto);
+            _contactList = _fileService.LoadListFromFile();
+
+            var Contact = _contactFactoryService.CreateContact(dto);
             _contactList.Add(Contact);
             _fileService.SaveToFile(_contactList);
             ContactListUpdated?.Invoke(this, EventArgs.Empty);
@@ -32,6 +43,8 @@ public class ContactService(IFileService fileService): IContactService, IContact
 
     public List<Contact> ViewAllContacts()
     {
+        _contactList = _fileService.LoadListFromFile();
+
         if (_contactList.Count <= 0)
         {
             return [];
@@ -44,8 +57,10 @@ public class ContactService(IFileService fileService): IContactService, IContact
 
     public Contact FindContactById(string id)
     {
+        _contactList = _fileService.LoadListFromFile();
+
         var emptyContact = ContactDto.CreateEmpty();
-        Contact empty = ContactFactory.CreateContact(emptyContact);
+        Contact empty = _contactFactoryService.CreateContact(emptyContact);
 
         foreach (Contact contact in _contactList)
         {
@@ -53,7 +68,6 @@ public class ContactService(IFileService fileService): IContactService, IContact
             {
                 ContactListUpdated?.Invoke(this, EventArgs.Empty);
                 return contact;
-
             }
         }
         return empty;
@@ -61,6 +75,8 @@ public class ContactService(IFileService fileService): IContactService, IContact
 
     public bool UpdateContact(Contact contact)
     {
+        _contactList = _fileService.LoadListFromFile();
+
         try
         {
             int index = _contactList.FindIndex(c => c.Id == contact.Id);
@@ -100,6 +116,8 @@ public class ContactService(IFileService fileService): IContactService, IContact
 
     public bool DeleteContact(Contact contact)
     {
+        _contactList = _fileService.LoadListFromFile();
+
         try
         {
             int index = _contactList.FindIndex(c => c.Id == contact.Id);
