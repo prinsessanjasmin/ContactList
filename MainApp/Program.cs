@@ -1,5 +1,4 @@
 ﻿using Business.Services;
-using System.Transactions;
 using Business.Interfaces;
 using Business.Configurations;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,20 +12,17 @@ class Program
         {
             services.AddTransient<IMenuService, MenuService>();
             services.AddSingleton<IFileService, FileService>();
-            services.AddTransient<Helpers>();
             services.AddSingleton<IContactService, ContactService>();
             services.AddSingleton(new FileServiceConfig
             {
-                DirectoryPath = "Data",
+                DirectoryPath = "C:\\Projects\\ContactList\\MainApp\\bin\\Debug\\net8.0\\Data",
                 FileName = "contactList.json"
             });
 
         }).Build();
 
-        using (var scope = host.Services.CreateScope())
-        {
-            var IMenuService = scope.ServiceProvider.GetRequiredService<IMenuService>();
-            IMenuService.MainMenu();
-        }
+        using var scope = host.Services.CreateScope();
+        var IMenuService = scope.ServiceProvider.GetRequiredService<IMenuService>();
+        IMenuService.MainMenu();
     }
 }

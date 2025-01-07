@@ -35,8 +35,6 @@ public partial class App : Application
                 services.AddTransient<ViewAllContactsView>();
                 services.AddTransient<ViewContactDetailsViewModel>();
                 services.AddTransient<ViewContactDetailsView>();
-                services.AddTransient<SearchContactViewModel>();
-                services.AddTransient<SearchContactView>();
                 services.AddTransient<IFileService, FileService>();
                 services.AddTransient<IContactService, ContactService>();
                 services.AddTransient<IContactServiceCRUD, ContactService>();

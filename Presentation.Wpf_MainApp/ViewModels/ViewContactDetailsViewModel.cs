@@ -2,13 +2,9 @@
 using Business.Interfaces;
 using Business.Models;
 using Business.DTOs;
-using Business.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.ObjectModel;
-using System.Security.RightsManagement;
-
 
 namespace Presentation.Wpf_MainApp.ViewModels;
 

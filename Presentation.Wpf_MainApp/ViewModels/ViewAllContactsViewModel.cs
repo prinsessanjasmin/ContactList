@@ -16,7 +16,7 @@ public partial class ViewAllContactsViewModel : ObservableObject
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;
-        UpdateList(); 
+        UpdateList();
 
         _contactService.ContactListUpdated += (sender, e) =>
         {

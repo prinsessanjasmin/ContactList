@@ -8,7 +8,7 @@ public partial class ContactDto : ObservableValidator
     public string Id {  get; set; }
 
     [ObservableProperty]
-    [Required(ErrorMessage = "First name is required")]
+    [Required(ErrorMessage = "First name is required.")]
     [MinLength(2, ErrorMessage = "First name must contain at least two characters.")]
     private string _firstName;
 
@@ -18,7 +18,7 @@ public partial class ContactDto : ObservableValidator
     }
 
     [ObservableProperty]
-    [Required(ErrorMessage = "Last name is required")]
+    [Required(ErrorMessage = "Last name is required.")]
     [MinLength(2, ErrorMessage = "Last name must contain at least two characters.")]
     private string _lastName;
 
@@ -28,7 +28,7 @@ public partial class ContactDto : ObservableValidator
     }
 
     [ObservableProperty]
-    [Required(ErrorMessage = "Email is required")]
+    [Required(ErrorMessage = "Email is required.")]
     [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Please enter a valid email address.")]
     //^ Regex created by ChatGPT 4o to match patterns for email addresses
     private string _email;
@@ -39,8 +39,8 @@ public partial class ContactDto : ObservableValidator
     }
 
     [ObservableProperty]
-    [Required(ErrorMessage = "Phone number is required")]
-    [RegularExpression(@"^(\+46|0)(\s?\d{2,4})\s?\d{2,3}\s?\d{2,3}$", ErrorMessage = "Please enter a valid phone number.")]
+    [Required(ErrorMessage = "Phone number is required.")]
+    [RegularExpression(@"^(\+46|0)(\s?\d{2,4})\s?\d{2,3}\s?\d{2,3}$", ErrorMessage = "Please enter a valid Swedish phone number.")]
     private string _phoneNumber;
 
     partial void OnPhoneNumberChanged(string value)
@@ -49,7 +49,7 @@ public partial class ContactDto : ObservableValidator
     }
 
     [ObservableProperty]
-    [Required(ErrorMessage = "Street address is required")]
+    [Required(ErrorMessage = "Street address is required.")]
     [MinLength(2, ErrorMessage = "Street address must contain at least two characters.")]
     private string _streetAddress;
 
@@ -59,8 +59,8 @@ public partial class ContactDto : ObservableValidator
     }
 
     [ObservableProperty]
-    [Required(ErrorMessage = "Post code is required")]
-    [RegularExpression(@"^\d{3}\s?\d{2}$", ErrorMessage = "Please enter a valid post code.")]
+    [Required(ErrorMessage = "Post code is required.")]
+    [RegularExpression(@"^\d{3}\s?\d{2}$", ErrorMessage = "Please enter a valid post code, consisting of 5 digits.")]
     private string _postCode;
 
     partial void OnPostCodeChanged(string value)
@@ -69,7 +69,7 @@ public partial class ContactDto : ObservableValidator
     }
 
     [ObservableProperty]
-    [Required(ErrorMessage = "City is required")]
+    [Required(ErrorMessage = "City is required.")]
     [MinLength(2, ErrorMessage = "City must contain at least two characters.")]
     private string _city;
 

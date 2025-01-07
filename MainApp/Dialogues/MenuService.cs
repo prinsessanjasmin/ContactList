@@ -6,15 +6,14 @@ using Business.Interfaces;
 using Business.Services;
 using System.Diagnostics.Eventing.Reader;
 using System.Diagnostics;
+using System.Linq.Expressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Presentation.Console_MainApp.Dialogues;
 
 public class MenuService(IContactService contactService) : IMenuService
 {
     private readonly IContactService _contactService = contactService;
-    
-    Helpers helper = new Helpers();
-    
 
     public void MainMenu()
     {
@@ -37,14 +36,12 @@ public class MenuService(IContactService contactService) : IMenuService
             {
                 case "1":
                     ViewAllContactsOption();
-                    
-                    helper.Pause();
+                    Pause();
                     break;
 
                 case "2":
-
                     CreateNewContactOption();
-                    helper.Pause();
+                    Pause();
                     break;
                 case "3":
                     exit = ExitApp(exit);
@@ -52,12 +49,12 @@ public class MenuService(IContactService contactService) : IMenuService
 
                 default:
                     Console.WriteLine("You must make a choice!");
-                    helper.Pause();
+                    Pause();
                     break;
             }
         } while (!exit);
 
-        Console.WriteLine("Thanks for using the contact list. Have a good day!");
+        Console.WriteLine("Thanks for using the Address Book. Have a good day!");
         Console.ReadKey();
     }
 
@@ -83,51 +80,36 @@ public class MenuService(IContactService contactService) : IMenuService
     }
     public bool CreateNewContactOption()
     {
-        Console.WriteLine("------------- Add new contact --------------");
-        Console.Write("First name: ");
-        string firstName = Console.ReadLine()!.Trim();
-        string vFirstName = helper.ValidateInput(firstName, "name");
-
-        Console.Write("Last name: ");
-        string lastName = Console.ReadLine()!.Trim();
-        string vLastName = helper.ValidateInput(lastName, "last name");
-
-        Console.Write("Email: ");
-        string email = Console.ReadLine()!.Trim();
-        string vEmail = helper.ValidateEmail(email);
-
-        Console.Write("Phone number: ");
-        string phoneNumber = Console.ReadLine()!.Trim();
-        string vPhoneNumber = helper.ValidatePhone(phoneNumber);
-
-        Console.Write("Street address: ");
-        string streetAddress = Console.ReadLine()!.Trim();
-        string vStreetAddress = helper.ValidateInput(streetAddress, "street address");
-
-        Console.Write("Post code (numbers): ");
-        string postCode = Console.ReadLine()!.Trim();
-        string vPostCode = helper.ValidatePostCode(postCode);
-
-        Console.Write("City: ");
-        string city = Console.ReadLine()!.Trim();
-        string vCity = helper.ValidateInput(city, "city");
-
         try
         {
-            ContactDto contactDto = new(null!, vFirstName.Trim(), vLastName.Trim(), vEmail.Trim(), vPhoneNumber.Trim(), vStreetAddress.Trim(), vPostCode.Trim(), vCity.Trim());
-            var result = _contactService.CreateNewContact(contactDto);
+            ContactDto dto = ContactDto.CreateEmpty();
+
+            Console.WriteLine("------------- Add new contact --------------");
+            dto.FirstName = PromptAndValidate("First name: ", nameof(ContactDto.FirstName));
+            dto.LastName = PromptAndValidate("Last name: ", nameof(ContactDto.LastName));
+            dto.Email = PromptAndValidate("Email: ", nameof(ContactDto.Email));
+            dto.PhoneNumber = PromptAndValidate("Phone number: ", nameof(ContactDto.PhoneNumber));
+            dto.StreetAddress = PromptAndValidate("Street Address: ", nameof(ContactDto.StreetAddress));
+            dto.PostCode = PromptAndValidate("Post code: ", nameof(ContactDto.PostCode));
+            dto.City = PromptAndValidate("City: ", nameof(ContactDto.City));
+
+            var result = _contactService.CreateNewContact(dto);
             if (result)
             {
                 Console.WriteLine($"The contact details were added.");
                 return true;
+            } else
+            {
+                Console.WriteLine("Something went wrong.");
+                return false; 
             }
-            return false;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Debug.WriteLine(ex.Message);
             return false;
-        } 
+        }
+
     }
 
     public bool ExitApp(bool exit)
@@ -140,59 +122,39 @@ public class MenuService(IContactService contactService) : IMenuService
         }
         else if (confirm.Equals("n", StringComparison.OrdinalIgnoreCase))
         {
-            helper.Pause();
+            Pause();
         }
         else
         {
             Console.Write("You didn't make a valid choice.");
-            helper.Pause();
+            Pause();
         }
         return exit;
     }
+
+    public string PromptAndValidate(string prompt, string propertyName)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            var input = Console.ReadLine() ?? string.Empty;
+
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(ContactDto.CreateEmpty()) { MemberName = propertyName };
+
+            if (Validator.TryValidateProperty(input, context, results))
+            {
+                return input;
+            }
+            Console.WriteLine($"{results[0].ErrorMessage} Please try again.");
+        }
+    }
+
+    public void Pause()
+    {
+        Console.WriteLine();
+        Console.WriteLine("-------------------------------------------");
+        Console.WriteLine("Press any key to return to the main menu");
+        Console.ReadKey();
+    }
 }
-
-
-/*
- Introduktion
-I denna inlämningsuppgift ska du bygga en applikation med hjälp av C#. Applikationen ska uppfylla de kriterier som specificeras 
-här nedan. För godkänt räcker det med att applikationen är en konsolapplikation, medan för väl godkänt krävs även att du skapar 
-en till applikation som använder sig av ett GUI (Graphical User Interface) såsom MAUI, MAUI Blazor eller WPF.
-
-Om du använder dig av kodstycken som är genererade av AI, såsom Chat GPT, måste detta framgå för att det inte ska räknas som 
-plagiat. Du ska då även kommentera koden och förklara vad den gör. Detta görs genom att använda vanliga kommentarer eller, 
-för längre stycken, med en sammanfattande summary-kommentar.
-
-Instruktioner på vad som ska göras
-Applikationen du ska skapa ska vara en kontaktlista där det ska vara möjligt att lägga till och se kontakter.En kontakt ska ha 
-följande information: förnamn, efternamn, e-postadress, telefonnummer, gatuadress, postnummer och ort.Varje kontakt ska även 
-få ett autogenererat id i form av en GUID.
-
-För godkänt krävs följande:
-
-En applikation som är byggd som en konsolapplikation med följande:
-
-Ett menyalternativ som listar alla kontakter.
-Ett menyalternativ som skapar en kontakt.
-Möjlighet att spara kontakter till en .json-fil.
-Möjlighet att läsa in kontakter från en.json-fil när applikationen startar och när listan uppdateras.
-Tillämpning av S i SOLID.
-Enhetstester (utan mock) på de metoder som kan testas utan att använda mock.
-
-
-För väl godkänt krävs följande:
-
-Att du gör en konsolapplikation (se G-kraven).
-
-Att du gör en till applikation, som använder sig av ett GUI, med följande:
-
-En sida som listar alla kontakter.
-En sida där man kan skapa en kontakt.
-En sida där man kan redigera en kontakt med möjlighet att uppdatera och ta bort kontakten.
-Möjlighet att spara kontakter till en .json-fil.
-Möjlighet att läsa in kontakter från en.json-fil när applikationen startar och när listan uppdateras.
-Användning av Dependency Injection.
-Användning av Klassbibliotek (Class Library).
-Tillämpning av flera olika Design Patterns: SOLID, Service Pattern och Factory Pattern.
-Enhetstester (med mock där det behövs) för alla metoder som används.
-
- */

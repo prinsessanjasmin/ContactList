@@ -6,7 +6,9 @@ namespace Presentation.Console_MainApp.Dialogues;
 public interface IMenuService
 {
     void MainMenu();
-    public void ViewAllContactsOption();
+    void ViewAllContactsOption();
     bool CreateNewContactOption();
     bool ExitApp(bool exit);
+    string PromptAndValidate(string prompt, string propertyName);
+    void Pause();
 }

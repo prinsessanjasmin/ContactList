@@ -72,13 +72,11 @@
                     <TextBlock Style="{StaticResource ErrorMessage}"
                                 Text="{Binding ElementName=CityTextBox, Path=(Validation.Errors)[0].ErrorContent}"
                                 Visibility="{Binding ElementName=CityTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />  
-
                 </StackPanel>
             </StackPanel>
             
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                
             </Grid.RowDefinitions>
         </Grid>
         <Button Grid.Row="3" Style="{StaticResource StandardButtons}" Margin="8" Content="Save Contact" CommandParameter="NewContact" Command="{Binding SaveCommand}"/>

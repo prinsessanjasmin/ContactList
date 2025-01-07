@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using Presentation.Wpf_MainApp.Views;
 
 namespace Presentation.Wpf_MainApp.ViewModels;
 

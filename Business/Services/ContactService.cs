@@ -42,20 +42,7 @@ public class ContactService(IFileService fileService): IContactService, IContact
         }
     }
 
-    public IEnumerable<Contact> FindContact(string searchWord)
-    {
-        IEnumerable<Contact> searchResult = null!;
-
-        //if (searchWord == null)
-        //{
-        //    return searchResult;
-        //}
-        //else if (_contactList.FirstOrDefault(i => i.Id == searchWord)
-        
-        return searchResult; 
-    }
-
-    public Contact FindContactById(string id) 
+    public Contact FindContactById(string id)
     {
         var emptyContact = ContactDto.CreateEmpty();
         Contact empty = ContactFactory.CreateContact(emptyContact);
@@ -66,7 +53,7 @@ public class ContactService(IFileService fileService): IContactService, IContact
             {
                 ContactListUpdated?.Invoke(this, EventArgs.Empty);
                 return contact;
-                
+
             }
         }
         return empty;

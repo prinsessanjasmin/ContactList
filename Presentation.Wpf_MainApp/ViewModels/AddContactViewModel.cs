@@ -3,7 +3,6 @@ using Business.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 
 namespace Presentation.Wpf_MainApp.ViewModels;
 

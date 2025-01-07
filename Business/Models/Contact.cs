@@ -1,10 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Security.Claims;
-using System;
-using System.ComponentModel;
-
-namespace Business.Models;
+﻿namespace Business.Models;
 
 public partial class Contact 
 {

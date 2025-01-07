@@ -2,7 +2,6 @@
 using Business.Interfaces;
 using Business.Models;
 using Business.Factories;
-using Business.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;

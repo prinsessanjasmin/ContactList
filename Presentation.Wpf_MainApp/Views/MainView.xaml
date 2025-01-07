@@ -21,7 +21,6 @@
         <StackPanel Grid.Row="2" VerticalAlignment="Top" Margin="0 80 0 0">
             <Button Style="{StaticResource StandardButtons}" Content="View All Contacts" Command="{Binding GoToViewAllContactsCommand}"/>
             <Button Style="{StaticResource StandardButtons}" Content="Add New Contact" Command="{Binding GoToAddContactCommand}"/>
-            <!--<Button Style="{StaticResource StandardButtons}" Content="Edit or Remove Contact" Command="{Binding GoToEditOrDeleteContactCommand}"/>-->
         </StackPanel>
 
         <Grid.RowDefinitions>
