@@ -5,7 +5,11 @@ using Business.Models;
 using System.Diagnostics;
 
 namespace Business.Services;
-
+/// <summary>
+/// The ContactService is the main class for executing the program's functions. It implements both the IContactService interface and the IContactServiceCRUD interface, 
+/// so it caters to both the Console application and the WPF App. 
+/// </summary>
+/// 
 public class ContactService : IContactService, IContactServiceCRUD
 {
     private List<Contact> _contactList = [];
@@ -16,9 +20,16 @@ public class ContactService : IContactService, IContactServiceCRUD
     {
         _fileService = fileService;
         _contactFactoryService = contactFactoryService;
-
         _contactList = _fileService.LoadListFromFile();
     }
+
+    /// <summary>
+    /// The logic in the CreateNewContact method is encased in a try/catch statement, in case anything should go wrong. 
+    /// The method first makes sure the list of contacts is updated, then it sends the dto with the users input to the ConatctFactory and returns a contact. 
+    /// That contact is added to the contact list. Then the list is saved to the file. The ContactListUpdated? event is then called, to make sure the using 
+    /// classes update the list in the UI accordingly. 
+    /// If everything works fine the method returns true, otherwise an exception message is written out and the method returns false.
+    /// </summary>
 
     public bool CreateNewContact(ContactDto dto)
     {
@@ -26,8 +37,8 @@ public class ContactService : IContactService, IContactServiceCRUD
         {
             _contactList = _fileService.LoadListFromFile();
 
-            var Contact = _contactFactoryService.CreateContact(dto);
-            _contactList.Add(Contact);
+            var contact = _contactFactoryService.CreateContact(dto);
+            _contactList.Add(contact);
             _fileService.SaveToFile(_contactList);
             ContactListUpdated?.Invoke(this, EventArgs.Empty);
             return true; 
@@ -40,6 +51,11 @@ public class ContactService : IContactService, IContactServiceCRUD
     }
 
     public event EventHandler? ContactListUpdated;
+
+    /// <summary>
+    /// The ViewAllContacts() method first makes sure the saved list is updated. Then it checks if the list has any contacts in it. If not, it returns an empty list. 
+    /// If the list isn't empty it is returned to the method calling it.
+    /// </summary>
 
     public List<Contact> ViewAllContacts()
     {
@@ -55,23 +71,14 @@ public class ContactService : IContactService, IContactServiceCRUD
         }
     }
 
-    public Contact FindContactById(string id)
-    {
-        _contactList = _fileService.LoadListFromFile();
-
-        var emptyContact = ContactDto.CreateEmpty();
-        Contact empty = _contactFactoryService.CreateContact(emptyContact);
-
-        foreach (Contact contact in _contactList)
-        {
-            if (contact.Id == id)
-            {
-                ContactListUpdated?.Invoke(this, EventArgs.Empty);
-                return contact;
-            }
-        }
-        return empty;
-    }
+    /// <summary>
+    /// The UpdateContact() method takes a contact as a parameter. This Contact (except the id) has been edited by the user, converted into a dto, validated and 
+    /// then converted back into a contact to be sent here. The method first makes sure the contact list is up to date. Then (in a try/catch statement, to avoid 
+    /// the program breaking down if there are errors) it saves the index number of the contact in question (using its id to make sure to find the original) to a variable. 
+    /// If the contact is not in the list the list, the method lets the user know and returns false. If the contact is in the list a new contact is created using a ContactDto
+    /// with the members from the updated contact. Then the updated contact replaces the original one and is placed on the same index in the list. The list is saved to file, an
+    /// event that the contactlist is updated is raised. Lastly the method returns true. If something is wrong an exception message is presented and the method returns false. 
+    /// </summary>
 
     public bool UpdateContact(Contact contact)
     {
@@ -114,6 +121,13 @@ public class ContactService : IContactService, IContactServiceCRUD
         }
     }
 
+    /// <summary>
+    /// The method DeleteContact() takes the contact the user wishes to delete as a parameter. It first makes sure the list is up to date. Then (in a try/catch statement) 
+    /// finds the index of the contact and saves it to a variable. The contact is then deleted from the list, using the index to find it. After that, the list is saved to
+    /// file nad the ContactListUpdated? event is raised. Then the method returns true. If something is wrong an exception message is presented and the method returns false. 
+    /// </summary>
+    /// <param name="contact"></param>
+    /// <returns></returns>
     public bool DeleteContact(Contact contact)
     {
         _contactList = _fileService.LoadListFromFile();

@@ -25,15 +25,6 @@ public partial class ViewContactDetailsViewModel : ObservableObject
     [ObservableProperty]
     private Contact _contact = null!;
 
-    public void LoadContact(string contactId)
-    {
-        Contact = _contactService.FindContactById(contactId);
-        if (Contact.FirstName == null)
-        {
-            throw new Exception("Contact not found.");
-        }
-    }
-
     [RelayCommand]
     private void EditContact(Contact contact)
     {

@@ -32,9 +32,4 @@ public partial class MainViewModel : ObservableObject
         CurrentViewModel = _serviceProvider.GetRequiredService<ViewAllContactsViewModel>();
     }
 
-    //[RelayCommand]
-    //private void GoToEditOrDeleteContact()
-    //{
-    //    CurrentViewModel = _serviceProvider.GetRequiredService<EditOrRemoveContactViewModel>();
-    //}
 }

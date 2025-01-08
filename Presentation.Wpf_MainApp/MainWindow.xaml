@@ -12,7 +12,7 @@
         mc:Ignorable="d"
         Background="DarkSlateGray"
         d:DesignHeight="550" d:DesignWidth="300"
-        Height="860" Width="450">
+        Height="600" Width="450">
 
     <Grid Margin="15">
         

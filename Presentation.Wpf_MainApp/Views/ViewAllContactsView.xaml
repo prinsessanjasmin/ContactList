@@ -9,18 +9,25 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewAllContactsViewModel}"
              mc:Ignorable="d" 
              Background="DarkSlateGray"
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="450">
     <Grid>
         <TextBlock Style="{StaticResource Text}" Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
 
         <Button Grid.Row="2" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Go Back" Command="{Binding GoBackCommand}"/>
 
         <Grid Grid.Row="1" Margin="8">
-            
-            <TextBlock Style="{StaticResource Text}" Margin="5" Grid.Row="0" Grid.Column="0" Text="Your Contacts" FontSize="16" FontWeight="Bold"/>
-            <Button Style="{StaticResource SymbolButtons}" Grid.Row="0" Grid.Column="10" Command="{Binding GoToAddContactViewCommand}" Content="&#xe948;" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-            <ListView ItemsSource="{Binding ContactList}"  Grid.Row="1" Margin="0 10 0 0" HorizontalContentAlignment="Stretch" Background="DarkSlateGray">
+            <Grid Margin="6" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource Text}" Grid.Column="0" Text="Your Contacts" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left"/>
+                <Button Style="{StaticResource SymbolButtons}" Grid.Column="1" Command="{Binding GoToAddContactViewCommand}" Content="&#xe948;" HorizontalAlignment="Right" />
+            </Grid>
+            <!--^ Couldn't figure out the placing so hade som help from ChatGPT 4o, which suggested a grid.-->
+
+            <ListView ItemsSource="{Binding ContactList}"  Grid.Row="1" Margin="0,10,0,0" BorderThickness="0" HorizontalContentAlignment="Stretch" Background="DarkSlateGray" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="models:Contact">
                         <Grid>

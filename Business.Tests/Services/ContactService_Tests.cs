@@ -89,45 +89,6 @@ public class ContactService_Tests
     }
 
     [Fact]
-    public void FindContactById_ShouldReturnContactWithCorrectId()
-    {
-        // arrange 
-        List<Contact> contacts = new List<Contact>();
-        contacts.Add(new Contact
-        {
-            Id = "2f5123c4-00ce-473e-b991-cd042c479822",
-            FirstName = "Jasmin",
-            LastName = "de Freitas",
-            Email = "jasmindefreitas@hotmail.com",
-            PhoneNumber = "0761613824",
-            StreetAddress = "Rataryd Gärdet 1",
-            PostCode = "34194",
-            City = "Ljungby"
-        });
-        contacts.Add(new Contact
-        {
-            Id = "b4ea757d-b297-49e2-b0a9-296f634e47ee",
-            FirstName = "Robin",
-            LastName = "Pafumi Dahlin",
-            Email = "robin.pafumi@gmail.com",
-            PhoneNumber = "0705157028",
-            StreetAddress = "Rataryd Gärdet 1",
-            PostCode = "34194",
-            City = "Ljungby"
-        });
-
-
-        _fileServiceMock.Setup(fs => fs.LoadListFromFile()).Returns(contacts);
-
-        // act 
-        var result = _contactServiceCRUD.FindContactById("b4ea757d-b297-49e2-b0a9-296f634e47ee");
-
-        // assert
-        Assert.IsType<Contact>(result);
-        Assert.Equal("Robin", result.FirstName);
-    }
-
-    [Fact]
     public void UpdateContact_ShouldReturnTrueIfContactUpdatesSuccessfylly()
     {
         // arrange 

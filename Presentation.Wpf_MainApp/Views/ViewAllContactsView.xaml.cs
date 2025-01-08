@@ -24,5 +24,10 @@ namespace Presentation.Wpf_MainApp.Views
         {
             InitializeComponent();
         }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

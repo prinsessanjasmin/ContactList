@@ -10,9 +10,9 @@ namespace Presentation.Wpf_MainApp.ViewModels;
 public partial class ViewAllContactsViewModel : ObservableObject
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly IContactService _contactService;
+    private readonly IContactServiceCRUD _contactService;
 
-    public ViewAllContactsViewModel(IServiceProvider serviceProvider, IContactService contactService)
+    public ViewAllContactsViewModel(IServiceProvider serviceProvider, IContactServiceCRUD contactService)
     {
         _serviceProvider = serviceProvider;
         _contactService = contactService;

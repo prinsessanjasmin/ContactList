@@ -57,21 +57,3 @@ public class FileService_Tests
     }
 }
 
-
-
-// arrange 
-
-// act 
-
-// assert
-
-//arrange _service.Do("meddelande")   Do = public void Do(string message)
-
-// act setup x => x.Do
-
-// hämtar upp var = message
-
-// Assert
-// Assert.Equal("meddelande", message)
-
-

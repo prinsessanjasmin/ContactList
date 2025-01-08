@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:EditOrRemoveContactViewModel}"
              mc:Ignorable="d" 
              Background="DarkSlateGray"
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="450">
     <Grid>
         <TextBlock Style="{StaticResource Text}" Grid.Row="0" Text="The Address Book" HorizontalAlignment="Center" Padding="8" FontSize="24"/>
         <StackPanel Grid.Row="1">

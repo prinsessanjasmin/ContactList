@@ -13,6 +13,7 @@ class Program
             services.AddTransient<IMenuService, MenuService>();
             services.AddSingleton<IFileService, FileService>();
             services.AddSingleton<IContactService, ContactService>();
+            services.AddSingleton<IContactFactoryService, ContactFactoryService>();
             services.AddSingleton(new FileServiceConfig
             {
                 DirectoryPath = "C:\\Projects\\ContactList\\MainApp\\bin\\Debug\\net8.0\\Data",

@@ -1,5 +1,9 @@
 ﻿namespace Business.Models;
 
+/// <summary>
+/// This model is used to store the data in the file. Two of the class members are just combinations of the other members, and are used to present the information using fewer lines of code. 
+/// The ToString() method has a similar responsibility, used when presenting the list of contacts in the Console Application. 
+/// </summary>
 public partial class Contact 
 {
     public string Id { get; set; } = null!; 

@@ -5,13 +5,13 @@ using System.Diagnostics;
 using System.Text.Json;
 
 namespace Business.Services;
+
 public class FileService : IFileService
 {
     private readonly string _directoryPath; 
     private readonly string _fileName;
 
     public FileService(FileServiceConfig config)
-        //ChatGPT
     {
         _directoryPath = config.DirectoryPath;
         _fileName = Path.Combine (_directoryPath, config.FileName);
