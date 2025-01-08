@@ -95,7 +95,7 @@ public partial class ContactDto : ObservableValidator
         ClearErrors(); // Clear previous errors
         ValidateAllProperties(); // Validate all properties based on annotations
     }
-    //^ChatGPT 4o
+    //^ChatGPT 4o 
 
     public static ContactDto CreateEmpty()
     {
