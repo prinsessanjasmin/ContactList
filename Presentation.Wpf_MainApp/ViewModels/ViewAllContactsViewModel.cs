@@ -41,7 +41,9 @@ public partial class ViewAllContactsViewModel : ObservableObject
     private ObservableCollection<Contact> _contactList = new();
 
 
-
+    /// <summary>
+    /// This command takes the user to the Add Contact Form. 
+    /// </summary>
     [RelayCommand]
     private void GoToAddContactView()
     {
@@ -49,6 +51,11 @@ public partial class ViewAllContactsViewModel : ObservableObject
         mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<AddContactViewModel>();
     }
 
+    /// <summary>
+    /// This command first checks which contact is being sent as a parameter, then takes the user to the details view of that 
+    /// particular Contact. 
+    /// </summary>
+    /// <param name="contact"></param>
     [RelayCommand]
     private void GoToViewContactDetailsView(Contact contact) 
     {
@@ -59,6 +66,9 @@ public partial class ViewAllContactsViewModel : ObservableObject
         mainViewModel.CurrentViewModel = viewContactDetailsViewModel;
     }
 
+    /// <summary>
+    /// Sends user back to the start page.
+    /// </summary>
     [RelayCommand]
     private void GoBack()
     {

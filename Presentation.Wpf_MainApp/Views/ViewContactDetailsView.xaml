@@ -31,7 +31,7 @@
 
         <Button Grid.Row="3" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Edit Contact" Command="{Binding EditContactCommand}" CommandParameter="{Binding Contact}" />
         <Button Grid.Row="4" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Delete Contact" Command="{Binding DeleteContactCommand}" CommandParameter="{Binding Contact}"/>
-        <Button Grid.Row="5" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Cancel" Command="{Binding GoBackCommand}"/>
+        <Button Grid.Row="5" Style="{StaticResource StandardButtons}" Margin="8" Padding="8" Content="Cancel" Command="{Binding CancelCommand}"/>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -3,14 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Business.DTOs;
 
+/// <summary>
+/// This class is used to collect user input and put it together to a valid dto. 
+/// The final dto is passed as a parameter to the ContactFactory/ContactFactoryService. 
+/// It contains methods for continously validating the user input, and a method to create an empty dto to be filled with user input. 
+/// I'm using the CommunityToolkit base class ObservableValidator to help me validate input from WPF app users. 
+/// </summary>
 public partial class ContactDto : ObservableValidator
 {
-    /// <summary>
-    /// This class is used to collect user input and put it together to a valid dto. 
-    /// The final dto is passed as a parameter to the ContactFactory/ContactFactoryService. 
-    /// It contains methods for continously validating the user input, and a method to create an empty dto to be filled with user input. 
-    /// I'm using the Community toolkit base class ObservableValidator to help me validate input from WPF app users. 
-    /// </summary>
+    
     public string Id {  get; set; }
 
     [ObservableProperty]

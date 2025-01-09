@@ -4,8 +4,9 @@ using Business.DTOs;
 namespace Business.Factories;
 
 /// <summary>
-/// The contact factory has two methods, one to use a dto to make a contact (and provide a unique id if it doesnt already have one), and one to convert a contact into a dto. 
-/// The second conversion is used when a user wants to edit the contact. If so, I don't want them to be able to input invalid values, and all the validation happens in the dto.
+/// The factory has two methods, one to use a ContactDto to make a Contact (and provide a unique id if it doesn't already have one), 
+/// and one to convert a Contact into a ContactDto. The second conversion is used when a user wants to edit the contact. If so, I don't want 
+/// them to be able to input invalid values, and as all the validation happens in the ContactDto class this is also done there.
 /// </summary>
 public class ContactFactory
 { 
